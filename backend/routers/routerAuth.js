@@ -1,20 +1,26 @@
 const express = require('express');
 const AuthController = require('../Controllers/AuthController');
-const routerUser = express.Router();
+const routerAuth = express.Router();
 
 /**
- * This route allow to dreate an account at the app to use it. 
+ * Public route on method POST to allow to create an account at the app to use it. 
+ * @method POST
+ * @returns
  */
-routerUser.post('/register', (req, res) => {res.json({message:'AuthController.register'})});
+routerAuth.post('/register', (req, res) => {res.json({message:'AuthController.register'})});
 
 /**
- * this route is using to connect at the app
+ * Public route on method POST is using to connect at the app
+ * @method POST
+ * @returns
  */
-routerUser.post('/', (req, res) => {res.json({message:'AuthController.login'})});
+routerAuth.post('/', AuthController.login);
 
 /**
- * this route is using to disconnect at the app
+ * Protected route on method GET is using to disconnect at the app
+ * @method GET
+ * @returns
  */
-routerUser.get('/logout', (req, res) => {res.json({message:'AuthController.logout'})});
+routerAuth.get('/logout', (req, res) => {res.json({message:'AuthController.logout'})});
 
-module.exports = routerUser;
+module.exports = routerAuth;
