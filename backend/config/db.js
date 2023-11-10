@@ -1,13 +1,13 @@
 const mysql      = require('mysql');
 const connectDB = async () => {
     try{
-       const connection = mysql.createConnection({
+       mysql.createConnection({
             host     : process.env.HOST,
             user     : process.env.USER,
             password : process.env.PASSWORD,
             database: process.env.DATABASE
           });
-          console.log('connexion successfull',  connection);
+          console.log('connexion successfull');
     } catch (error) {
         console.error('error connecting: ' + err.stack);
     return;
