@@ -1,0 +1,20 @@
+{
+  "name": "api_to_do_list_cda",
+  "version": "1.0.0",
+  "description": "a API for my examen to become an desginer and developer of application. It is a web site of to do list",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Thibault PERONNO",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mysql": "^2.18.1",
+    "nodemon": "^3.0.1"
+  }
+}
