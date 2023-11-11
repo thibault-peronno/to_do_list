@@ -1,5 +1,6 @@
-const jwt = require('jsonwebtoken');
-const logger = require('../helpers/logger');
+import jwt from 'jsonwebtoken';
+import logger from '../helpers/logger';
+
 const userMiddleware  = {
     checkIfLoggedin: (req, res, next) => {
         try{
@@ -28,4 +29,4 @@ const userMiddleware  = {
     }
 }
 
-module.exports = userMiddleware;
+export default userMiddleware;

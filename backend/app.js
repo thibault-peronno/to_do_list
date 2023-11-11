@@ -1,18 +1,22 @@
-const express = require('express');
-const connectDB = require('./config/db');
-const router = require('./routers/routes.js')
-const dotenv = require('dotenv').config();
+import express from 'express';
+import router from './routers/routes.js';
+import dotenv from 'dotenv';
 console.log(dotenv);
-const port = 3000;
+// const cookieParser = require("cookie-parser");
+import cors from 'cors';
+const envConfig=dotenv.config();
+const  port = 3000;
 
-connectDB();
-// console.log('log connection db ' + connectDB());
+
+// console.log('log connection db ' + connectDB);
 const app = express();
 
 // Middleware qui permet de traiter les données de la Request
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-console.log(router);
+// app.use(cookieParser());
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+// console.log(router);
 app.use(router);
 
 app.listen(port, () => {

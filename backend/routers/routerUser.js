@@ -1,5 +1,5 @@
-const express = require('express');
-const UserController = require('../Controllers/UserController');
+import express from 'express';
+import UserController from '../Controllers/UserController.js';
 
 const routerUser = express.Router();
 
@@ -9,7 +9,7 @@ const routerUser = express.Router();
  * @param {number} id
  * @returns a json body with data of current user
  */
-routerUser.get('/:id', (req, res) => {res.json({message:'UserController.get : current user'})});
+routerUser.get('/:id', UserController.getUser);
 
 /**
  * Protected route on method POST to update the current user's information
@@ -17,7 +17,7 @@ routerUser.get('/:id', (req, res) => {res.json({message:'UserController.get : cu
  * @param {number} id
  * @returns the new datas
  */
-routerUser.post('/:id', (req, res)=> {res.json({message:'UserController.post update user'})});
+routerUser.post('/:id', UserController.updateUser);
 
 /**
  * Protected route on method DELETE to delete the current user
@@ -25,6 +25,6 @@ routerUser.post('/:id', (req, res)=> {res.json({message:'UserController.post upd
  * @param {number} id
  * @returns nothing, redirect to login page
  */
-routerUser.delete('/:id', (req, res)=>{res.json({message:'UserController.delete delete user'})});
+routerUser.delete('/:id', UserController.updateUser);
 
-module.exports = routerUser;
+export default routerUser;

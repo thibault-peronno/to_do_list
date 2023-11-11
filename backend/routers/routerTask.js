@@ -1,5 +1,5 @@
-const express = require('express');
-const TaskController = require('../Controllers/TaskController');
+import express from 'express';
+import TaskController from '../Controllers/TaskController.js';
 const routerTask = express.Router();
 
 /**
@@ -8,7 +8,7 @@ const routerTask = express.Router();
  * @param
  * @returns
  */
-routerTask.get('/tasks', (req,res)=> {res.json({message: 'TaskController.all find all tasks'})});
+routerTask.get('/tasks', TaskController.getTasks);
 
 /**
  * Protected route on method GET to retrieve the current task
@@ -16,15 +16,15 @@ routerTask.get('/tasks', (req,res)=> {res.json({message: 'TaskController.all fin
  * @param {number} id
  * @returns
  */
-routerTask.get('/:id', (req, res)=>{res.json({message : 'TaskController.one find current tast'})});
+routerTask.get('/:id', TaskController.getTask);
 
 /**
- * Protected route on method POST to retrieve the current task
+ * Protected route on method POST to update the current task
  * @method POST
  * @param {number} id
  * @returns
  */
-routerTask.post('/:id', (req, res)=>{res.json({message : 'TaskController.one update current tast'})});
+routerTask.post('/:id', TaskController.updateTask);
 
 /**
  * Protected route on method DELETE to retrieve the current task
@@ -32,6 +32,6 @@ routerTask.post('/:id', (req, res)=>{res.json({message : 'TaskController.one upd
  * @param {number} id
  * @returns
  */
-routerTask.delete('/:id', (req, res)=>{res.json({message : 'TaskController.delete current tast'})});
+routerTask.delete('/:id', TaskController.deleteTask);
 
-module.exports = routerTask;
+export default routerTask;
