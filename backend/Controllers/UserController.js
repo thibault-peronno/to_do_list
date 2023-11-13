@@ -1,4 +1,4 @@
-import UserModel from "../models/user.js";
+import UserModel from "../Models/user.js";
 
 console.log(UserModel.findall);
 

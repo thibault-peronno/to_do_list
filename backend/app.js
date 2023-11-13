@@ -1,10 +1,9 @@
 import express from 'express';
 import router from './routers/routes.js';
-import dotenv from 'dotenv';
+import dotenv from 'dotenv/config';
 
 // const cookieParser = require("cookie-parser");
 import cors from 'cors';
-const envConfig=dotenv.config();
 const  port = 3000;
 
 

@@ -1,4 +1,5 @@
-import mysql from "mysql";
+import mysql from "mysql2";
+import dotenv from 'dotenv/config';
 
 // const connectDB = async () => {
 //     try{
@@ -15,9 +16,11 @@ import mysql from "mysql";
 //     return;
 //     }
 // }
+console.log(process.env.HOST,process.env.PORT, process.env.USER, process.env.PASSWORD, process.env.DATABASE,);
 
 const connectDB = mysql.createConnection({
   host: process.env.HOST,
+  port: process.env.PORT,
   user: process.env.USER,
   password: process.env.PASSWORD,
   database: process.env.DATABASE,
