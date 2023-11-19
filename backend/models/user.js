@@ -22,7 +22,7 @@ class UserModel {
         );
       console.log("14 : " + JSON.stringify(user));
       // Mettre à jour les propriétés de userEntity avec les données de l'utilisateur
-      this.userEntity.id = user[0].id;
+      // this.userEntity.id = user[0].id;
       this.userEntity.firstname = user[0].firstname;
       this.userEntity.lastname = user[0].lastname;
       this.userEntity.identifiant = user[0].identifiant;

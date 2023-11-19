@@ -10,7 +10,7 @@ const taskController = new TaskController;
  * @param
  * @returns
  */
-routerTask.get('/tasks', taskController.getTasks);
+routerTask.get('/tasks/:id', taskController.getTasks);
 
 /**
  * Protected route on method GET to retrieve the current task

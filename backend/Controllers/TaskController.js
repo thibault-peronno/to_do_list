@@ -5,7 +5,19 @@ class TaskController {
         this.taskModel = new TaskModel;
     }
 
-    getTasks = async (req,res)=> {res.json({message: 'TaskController.all find all tasks in controller'})};
+    getTasks = async (req,res)=> {
+        try{
+            const userId = parseInt(req.params.id);
+
+            if (isNaN(userId)) throw new Error();
+
+            const tasks = await this.taskModel.findTasksOfCurrentUser(userId);
+            console.log("usercontroller return : " + tasks);
+            res.send(tasks);
+        }catch(error){
+            res.json({ message: `message d'erreur : ${error}, ${error.statut}` });
+        }
+    };
 
     getTask = async (req, res)=>{res.json({message : 'TaskController.one find current tast in controller'})};
 
