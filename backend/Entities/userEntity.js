@@ -44,3 +44,5 @@ class UserEntity {
         this._password = newPassword;
     }
 }
+
+export default UserEntity;
