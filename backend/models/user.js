@@ -53,4 +53,4 @@ class Usermodel {
 //   },
 // };
 
-export default userModel;
+export default Usermodel;
