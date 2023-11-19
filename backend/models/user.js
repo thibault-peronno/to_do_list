@@ -6,8 +6,8 @@ console.log("connectDB model : " + connectDB);
 
 class Usermodel {
   constructor() {
-    console.log((userEntity = new UserEntity()));
     this.userEntity = new UserEntity();
+    console.log(this.userEntity);
   }
 
   findCurrentUser = async (userId) => {
@@ -17,16 +17,15 @@ class Usermodel {
       const [user] = await connectDB
         .promise()
         .query(
-          "SELECT `id` `lastname` `firstname` `identifiant` FROM `users` WHERE id = ? ",
+          "SELECT `id`, `lastname`, `firstname`, `identifiant` FROM `users` WHERE id = ? ",
           [userId]
         );
-      console.log("14 : " + JSON.stringify(user[0].id));
+      console.log("14 : " + JSON.stringify(user));
       // Mettre à jour les propriétés de userEntity avec les données de l'utilisateur
       this.userEntity.id = user[0].id;
       this.userEntity.firstname = user[0].firstname;
       this.userEntity.lastname = user[0].lastname;
-      this.userEntity.email = user[0].email;
-      this.userEntity.password = user[0].password;
+      this.userEntity.identifiant = user[0].identifiant;
       return this.userEntity;
     } catch (error) {
       // return `utilisateur introuvable: ${error.message}, ${error}`;
