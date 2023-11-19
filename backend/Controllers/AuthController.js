@@ -1,10 +1,25 @@
+import AuthModel from "../Models/auth.js";
 
-const AuthController = {
-    login: async (req, res) => {res.json({message:'AuthController.login in controller'})},
+class AuthController {
+    constructor(){
+        this.authModel = new AuthModel;
+    }
 
-    register: async  (req, res) => {res.json({message:'AuthController.register in controller'})},
+    login = async (req, res) => {res.json({message:'AuthController.login in controller'})};
 
-    logout: async (req, res) => {res.json({message:'AuthController.logout in controller'})},
+    register = async  (req, res) => {res.json({message:'AuthController.register in controller'})};
+
+    logout = async (req, res) => {res.json({message:'AuthController.logout in controller'})};
 }
+
+
+
+// const AuthController = {
+//     login: async (req, res) => {res.json({message:'AuthController.login in controller'})},
+
+//     register: async  (req, res) => {res.json({message:'AuthController.register in controller'})},
+
+//     logout: async (req, res) => {res.json({message:'AuthController.logout in controller'})},
+// }
 
 export default AuthController;

@@ -1,6 +1,8 @@
 import express from 'express';
 import TaskController from '../Controllers/TaskController.js';
+
 const routerTask = express.Router();
+const taskController = new TaskController;
 
 /**
  * Protected route on method GET to retrieve all taks from the current user
@@ -8,7 +10,7 @@ const routerTask = express.Router();
  * @param
  * @returns
  */
-routerTask.get('/tasks', TaskController.getTasks);
+routerTask.get('/tasks', taskController.getTasks);
 
 /**
  * Protected route on method GET to retrieve the current task
@@ -16,7 +18,7 @@ routerTask.get('/tasks', TaskController.getTasks);
  * @param {number} id
  * @returns
  */
-routerTask.get('/:id', TaskController.getTask);
+routerTask.get('/:id', taskController.getTask);
 
 /**
  * Protected route on method POST to update the current task
@@ -24,7 +26,7 @@ routerTask.get('/:id', TaskController.getTask);
  * @param {number} id
  * @returns
  */
-routerTask.post('/:id', TaskController.updateTask);
+routerTask.post('/:id', taskController.updateTask);
 
 /**
  * Protected route on method DELETE to retrieve the current task
@@ -32,6 +34,6 @@ routerTask.post('/:id', TaskController.updateTask);
  * @param {number} id
  * @returns
  */
-routerTask.delete('/:id', TaskController.deleteTask);
+routerTask.delete('/:id', taskController.deleteTask);
 
 export default routerTask;

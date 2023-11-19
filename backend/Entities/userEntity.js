@@ -8,12 +8,9 @@ class UserEntity {
         this._identifiant = identifiant;
         this._password = password
     }
-    
+    // I could create entityCore entities for the id. But for practice I do not
     get id(){
         return this._id;
-    }
-    set id(newId){
-        this._id = newId;
     }
 
     get firstname(){

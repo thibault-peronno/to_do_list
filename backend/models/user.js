@@ -4,7 +4,7 @@ import UserEntity from "../Entities/userEntity.js";
 // connectDB();
 console.log("connectDB model : " + connectDB);
 
-class Usermodel {
+class UserModel {
   constructor() {
     this.userEntity = new UserEntity();
     console.log(this.userEntity);
@@ -52,4 +52,4 @@ class Usermodel {
 //   },
 // };
 
-export default Usermodel;
+export default UserModel;
