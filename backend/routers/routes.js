@@ -8,8 +8,8 @@ const router = express.Router();
 
 router.get('/', (req, res) => {res.json({message:'callback'})});
 
-router.use('/auth', authRouter);
-router.use('/user', userRouter);
-router.use('/task', taskRouter);
+router.use('/api/auth', authRouter);
+router.use('/api/user', userRouter);
+router.use('/api/task', taskRouter);
 
 export default router;

@@ -1,9 +1,9 @@
 import connectDB from "../config/db.js";
-import AuthEntity from "../Entities/authentity.js";
+import AuthService from "../Services/authService.js";
 
 class AuthModel {
     constructor(){
-        this.authEntity = new AuthEntity;
+        this.authService = new AuthService;
         console.log(this.authEntity);
     }
 

@@ -12,7 +12,7 @@ class TaskController {
             if (isNaN(userId)) throw new Error();
 
             const tasks = await this.taskModel.findTasksOfCurrentUser(userId);
-            console.log("usercontroller return : " + tasks);
+            // console.log("taskcontroller return : " + JSON.stringify([tasks]));
             res.send(tasks);
         }catch(error){
             res.json({ message: `message d'erreur : ${error}, ${error.statut}` });

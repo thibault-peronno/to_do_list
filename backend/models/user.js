@@ -1,13 +1,12 @@
 import connectDB from "../config/db.js";
-import UserEntity from "../Entities/userEntity.js";
+import UserService from "../Services/userService.js";
 
 // connectDB();
 console.log("connectDB model : " + connectDB);
 
 class UserModel {
   constructor() {
-    this.userEntity = new UserEntity();
-    console.log(this.userEntity);
+    this.userService = new UserService;
   }
 
   findCurrentUser = async (userId) => {
@@ -21,35 +20,29 @@ class UserModel {
           [userId]
         );
       console.log("14 : " + JSON.stringify(user));
-      // Mettre à jour les propriétés de userEntity avec les données de l'utilisateur
-      // this.userEntity.id = user[0].id;
-      this.userEntity.firstname = user[0].firstname;
-      this.userEntity.lastname = user[0].lastname;
-      this.userEntity.identifiant = user[0].identifiant;
-      return this.userEntity;
+      
+      return user;
     } catch (error) {
       // return `utilisateur introuvable: ${error.message}, ${error}`;
       throw new Error(`utilisateur introuvable: ${error}`);
     }
   };
+
+  createNewUser = async (newUserValue)=>{
+    try{
+      const checkValidation = await this.userService.validateUser(newUserValue);
+      console.log('newUserValue ' + typeof newUserValue);
+      console.log('checkValidation ' + typeof checkValidation);
+      const { firstname, lastname, identifiant, password } = JSON.parse(newUserValue);
+      const result = await connectDB
+      .promise()
+      .query("INSERT INTO `users` (firstname, lastname, identifiant, password) values (?,?,?,?)", [firstname, lastname, identifiant, password]);
+      return {id: result.id, firstname, lastname, identifiant};
+    }catch(error){
+      console.log('error user model ' + error);
+      return error;
+    }
+  }
 }
-
-// const userModel = {
-//   findCurrentUser: async (userId) => {
-//       try {
-//         // return {message : 'test'};
-//         console.log('model id : ' + userId);
-//       const [user] = await connectDB.promise().query("SELECT * FROM `users` WHERE id = ? ", [
-//         userId,
-//       ]);
-//       console.log('14 : ' + JSON.stringify(user[0].id));
-//       return user;
-//     } catch (error) {
-
-//       // return `utilisateur introuvable: ${error.message}, ${error}`;
-//       throw new Error(`utilisateur introuvable: ${error}`);
-//     }
-//   },
-// };
 
 export default UserModel;
