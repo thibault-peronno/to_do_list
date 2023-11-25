@@ -9,8 +9,9 @@ class UserService {
     this.userEntity = new UserEntity();
   }
 
-  validateUser = async (userValue, createMod) => {
-    console.log('validateUser service : ' + userValue);
+  validateNewUser = async (userValue, createMod) => {
+    // console.log('validateUser service : ');
+    // console.log(userValue);
     const userSchema = Joi.object({
       firstname : Joi.string().required(),
       lastname : Joi.string(),
@@ -18,31 +19,30 @@ class UserService {
       password : Joi.string(),
     })
     // .xor('password', 'access_token') allow to switch check between password and access_token
-    
-      console.log('uservalue ' + userValue);
-      
-      this.userEntity._firstname = userValue.firstname;
-      this.userEntity._lastname = userValue.lastname;
-      this.userEntity._identifiant = userValue.identifiant;
-      this.userEntity._password = userValue.password;
-      console.log('this.userEntity ' +  typeof this.userEntity);
-
-      const test = {
-        firstname : 'test firstname',
-        lastname : 'test lastname',
-        identifiant : 'test_identifiant@gmail.com',
-        password : 'test password'
-      } 
-      console.log('test ' + typeof test);
-      const { error } = await userSchema.validateAsync(test);
+ 
+      const { error } = await userSchema.validateAsync(userValue);
 
       if (error) {
         console.log('error' + error);
-        return {message : error + 'retour du user service'};
+        return {message : error + 'retour erreur du user service'};
        
     }
     return userValue;   
     
+  }
+
+  validateUpdateUser = async (userValue, createMod) => {
+    const userSchema = Joi.object({
+      id: Joi.number(),
+      firstname : Joi.string(),
+      lastname : Joi.string(),
+      identifiant : Joi.string(),
+      role : Joi.string()
+    })
+    const { error, value } = await userSchema.validateAsync(userValue);
+    console.log("value", value);
+
+    return error ? {message : error + 'retour erreur du user service'}: userValue;
   }
 
 }

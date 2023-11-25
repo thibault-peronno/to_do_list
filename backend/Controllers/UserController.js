@@ -20,22 +20,34 @@ class UserController {
   };
 
   createUser = async (req, res) => {
-    console.log(`req : ${JSON.stringify(req.body)}`);
-    const body= JSON.stringify(req.body);
+    // console.log('req.body');
+    // console.log(req.body);
+    const body= req.body;
     try{
       const createdUser = await this.userModel.createNewUser(body);
-      
+      // console.log('createdUser : ');
+      // console.log(createdUser);
       
       // return
-      res.send({error : {message : createdUser.message}})
+      res.send(createdUser)
     }catch(error){
-      console.log('error: ' + error.message);
+      // console.log('error: ' + error.message);
       res.send({message : error});
     }
   }
 
   updateUser = async (req, res) => {
-    res.json({ message: "UserController.post update user in controller" });
+    const { body } = req
+    console.log("body : ", body);
+    try {
+      const updateUser = await this.userModel.updateUser(body);
+      console.log("updateUser", updateUser);
+      res.send(updateUser);
+    } catch (error) {
+      console.log("error controller", error);
+      res.send(error);
+    }
+    // res.json({ message: "UserController.post update user in controller" });
   };
 
   deleteUser = async (req, res) => {
