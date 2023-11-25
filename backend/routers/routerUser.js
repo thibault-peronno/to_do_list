@@ -34,6 +34,6 @@ routerUser.post('/:id', userController.updateUser);
  * @param {number} id
  * @returns nothing, redirect to login page
  */
-routerUser.delete('/:id', userController.updateUser);
+routerUser.delete('/:id', userController.deleteUser);
 
 export default routerUser;

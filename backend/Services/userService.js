@@ -45,6 +45,17 @@ class UserService {
     return error ? {message : error + 'retour erreur du user service'}: userValue;
   }
 
+  validateDeleteUser = async (userValue, createMod) => {
+    const userSchema = Joi.object({
+      id: Joi.number()
+    });
+    const { error, value } = await userSchema.validateAsync(userValue);
+    console.log("value", value);
+    console.log("error", error);
+
+    return error ? {message : error + 'retour erreur du user service'}: "";
+  }
+
 }
 
 export default UserService;

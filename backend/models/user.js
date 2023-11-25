@@ -53,10 +53,26 @@ class UserModel {
       const result = await connectDB
       .promise()
       .query("UPDATE `users` SET firstname=?, lastname=?, identifiant=?, role=? WHERE id= ?", [firstname, lastname, identifiant, role, id]);
-      console.log("result", result);
+      // console.log("result", result);
 
       const updateValue = await this.findCurrentUser(id);
       return updateValue;
+    } catch (error) {
+      return error;
+    }
+
+  }
+  deleteUser = async (deleteUserValue) =>{
+    console.log("delete user model");
+    console.log(deleteUserValue);
+    try {
+      await this.userService.validateDeleteUser(deleteUserValue);
+
+      const { id } = deleteUserValue;
+      const result = await connectDB
+      .promise()
+      .query("DELETE FROM `users` WHERE id=?", [id]);
+
     } catch (error) {
       return error;
     }

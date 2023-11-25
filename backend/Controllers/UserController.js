@@ -38,20 +38,31 @@ class UserController {
 
   updateUser = async (req, res) => {
     const { body } = req
-    console.log("body : ", body);
+    // console.log("body : ", body);
     try {
       const updateUser = await this.userModel.updateUser(body);
-      console.log("updateUser", updateUser);
+      // console.log("updateUser", updateUser);
       res.send(updateUser);
     } catch (error) {
-      console.log("error controller", error);
+      // console.log("error controller", error);
       res.send(error);
     }
     // res.json({ message: "UserController.post update user in controller" });
   };
 
   deleteUser = async (req, res) => {
-    res.json({ message: "UserController.delete delete user in controller" });
+    console.log("delete controller");
+    const { body } = req;
+    console.log("body", body);
+    try {
+      const deleteUser = await this.userModel.deleteUser(body);
+      res.send({message: "l'utilisateur a été supprimé",
+    status : "ok"});
+    } catch (error) {
+      res.send({message: error,
+      code: 500});
+    }
+    // res.json({ message: "UserController.delete delete user in controller" });
   };
 }
 
