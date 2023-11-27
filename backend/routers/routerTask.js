@@ -29,6 +29,14 @@ routerTask.get('/:id', taskController.getTask);
 routerTask.post('/:id', taskController.updateTask);
 
 /**
+ * Protected route on method POST to update the current task
+ * @method POST
+ * @param 
+ * @returns
+ */
+routerTask.post('/', taskController.createTask);
+
+/**
  * Protected route on method DELETE to retrieve the current task
  * @method DELETE
  * @param {number} id

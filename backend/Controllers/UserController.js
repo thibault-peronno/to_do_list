@@ -51,9 +51,9 @@ class UserController {
   };
 
   deleteUser = async (req, res) => {
-    console.log("delete controller");
+    // console.log("delete controller");
     const { body } = req;
-    console.log("body", body);
+    // console.log("body", body);
     try {
       const deleteUser = await this.userModel.deleteUser(body);
       res.send({message: "l'utilisateur a été supprimé",

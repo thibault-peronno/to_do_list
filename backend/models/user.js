@@ -36,8 +36,8 @@ class UserModel {
       const { firstname, lastname, identifiant, password } = newUserValue;
       const result = await connectDB
       .promise()
-      .query("INSERT INTO `users` (firstname, lastname, identifiant, password) values (?,?,?,?)", [firstname, lastname, identifiant, password]);
-      return {id: result.id, firstname, lastname, identifiant};
+      .query("INSERT INTO `users` (firstname, lastname, identifiant, password) VALUES (?,?,?,?)", [firstname, lastname, identifiant, password]);
+      return { id: result.id, firstname, lastname, identifiant };
     }catch(error){
       // console.log('error user model ' + error);
       return error;

@@ -14,16 +14,15 @@ class UserService {
     // console.log(userValue);
     const userSchema = Joi.object({
       firstname : Joi.string().required(),
-      lastname : Joi.string(),
+      lastname : Joi.string().required(),
       identifiant : Joi.string().email(),
-      password : Joi.string(),
+      password : Joi.string().required(),
     })
     // .xor('password', 'access_token') allow to switch check between password and access_token
  
       const { error } = await userSchema.validateAsync(userValue);
 
       if (error) {
-        console.log('error' + error);
         return {message : error + 'retour erreur du user service'};
        
     }
