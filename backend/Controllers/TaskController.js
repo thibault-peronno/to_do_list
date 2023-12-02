@@ -1,64 +1,106 @@
-import TaskModel from "../Models/task.js"
+import TaskModel from "../Models/task.js";
 
 class TaskController {
-    constructor(){
-        this.taskModel = new TaskModel;
+  constructor() {
+    this.taskModel = new TaskModel();
+  }
+
+  /**
+   * 
+   * @param {
+   * "description",
+   * "isDone",
+   * "user_id"} req 
+   * @param {
+   * "description",
+   * "isDone"} res 
+   */
+  createTask = async (req, res) => {
+    try {
+      const { body } = req;
+      const newTask = await this.taskModel.createTask(body);
+      res.send(newTask);
+    } catch (error) {
+      res.send(error);
     }
+  };
 
-    createTask = async (req, res)=> {
-        try {
-            const { body } = req;
-            console.log(body);
-            const newTask = await this.taskModel.createTask(body);
-            console.log(newTask);
-            res.send({message : newTask.message});
-        } catch (error) {
-            console.log('taskcontroller error');
-            res.send(error);
-        }
+  /**
+   * 
+   * @param {"id"} req 
+   * @param {
+   * "id",
+   * "description",
+   * "isdone"} res 
+   */
+  getTasks = async (req, res) => {
+    try {
+      const userId = parseInt(req.params.id);
+      if (isNaN(userId)) throw new Error();
+      const tasks = await this.taskModel.findTasksOfCurrentUser(userId);
+      res.send(tasks);
+    } catch (error) {
+      res.json({ message: error });
     }
+  };
 
-    getTasks = async (req,res)=> {
-        try{
-            const userId = parseInt(req.params.id);
+  /**
+   * 
+   * @param {id} req 
+   * @param {
+   * "id",
+   * "description",
+   * "isdone"} res 
+   */
+  getTask = async (req, res) => {
+    try {
+      const userId = parseInt(req.params.id);
+      if (isNaN(userId)) throw new Error();
+      const task = await this.taskModel.findTaskOfCurrentUser(userId);
+      res.send(task);
+    } catch (error) {
+      res.json({ message: `message d'erreur : ${error}, ${error.statut}` });
+    }
+  };
 
-            if (isNaN(userId)) throw new Error();
+  /**
+   * 
+   * @param {
+   * "id",
+   * "description",
+   * "isDone"} req 
+   * @param {
+   * "id",
+   * "description",
+   * "isDone"} res 
+   */
+  updateTask = async (req, res) => {
+    const { body } = req;
+    try {
+      const taskUpdated = await this.taskModel.updateCurrentTask(body);
+      res.send(taskUpdated);
+    } catch (error) {
+      return error;
+    }
+  };
 
-            const tasks = await this.taskModel.findTasksOfCurrentUser(userId);
-            // console.log("taskcontroller return : " + JSON.stringify([tasks]));
-            res.send(tasks);
-        }catch(error){
-            res.json({ message: error });
-        }
-    };
-
-    getTask = async (req, res)=>{
-        try {
-            const userId = parseInt(req.params.id);
-            
-            if (isNaN(userId)) throw new Error();
-            const task = await this.taskModel.findTaskOfCurrentUser(userId);
-            res.send(task);
-        } catch (error) {
-            res.json({ message: `message d'erreur : ${error}, ${error.statut}` });
-        }
-        // res.json({message : 'TaskController.one find current tast in controller'})
-    };
-
-    updateTask = async (req, res)=>{res.json({message : 'TaskController.one update current tast in controller'})};
-
-    deleteTask = async (req, res)=>{res.json({message : 'TaskController.delete current tast in controller'})};
+  /**
+   * 
+   * @param {"id"} req 
+   * @param {} res 
+   */
+  deleteTask = async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      console.log("id" , id);
+      if (isNaN(id)) throw new Error();
+      const task = await this.taskModel.deleteTask(id);
+      res.send({ message: "la tâche a été supprimé", status: "ok" });
+    } catch (error) {
+      console.log("eeror " + error);
+      res.json({ message: `message d'erreur : ${error}, ${error.statut}` });
+    }
+  };
 }
-
-
-// const TaskController = {
-//     getTasks: async (req,res)=> {res.json({message: 'TaskController.all find all tasks in controller'})},
-
-//     getTask: async (req, res)=>{res.json({message : 'TaskController.one find current tast in controller'})},
-
-//     updateTask: async (req, res)=>{res.json({message : 'TaskController.one update current tast in controller'})},
-
-//     deleteTask: async (req, res)=>{res.json({message : 'TaskController.delete current tast in controller'})}
-// }
 
 export default TaskController;

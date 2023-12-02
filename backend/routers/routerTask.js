@@ -7,32 +7,32 @@ const taskController = new TaskController;
 /**
  * Protected route on method GET to retrieve all taks from the current user
  * @method GET
- * @param
- * @returns
+ * @param {id}
+ * @returns a json datas of all tasks from current user
  */
 routerTask.get('/tasks/:id', taskController.getTasks);
 
 /**
  * Protected route on method GET to retrieve the current task
  * @method GET
- * @param {number} id
- * @returns
+ * @param {id}
+ * @returns a json datas of task from current user
  */
 routerTask.get('/:id', taskController.getTask);
 
 /**
  * Protected route on method POST to update the current task
  * @method POST
- * @param {number} id
- * @returns
+ * @param {id}
+ * @returns an update of current task in json
  */
-routerTask.post('/:id', taskController.updateTask);
+routerTask.patch('/:id', taskController.updateTask);
 
 /**
  * Protected route on method POST to update the current task
  * @method POST
  * @param 
- * @returns
+ * @returns a new json task datas 
  */
 routerTask.post('/', taskController.createTask);
 

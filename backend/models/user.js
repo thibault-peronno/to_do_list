@@ -72,9 +72,9 @@ class UserModel {
       const result = await connectDB
       .promise()
       .query("DELETE FROM `users` WHERE id=?", [id]);
-
+      return result;
     } catch (error) {
-      return error;
+      return error.messsage;
     }
   }
 }

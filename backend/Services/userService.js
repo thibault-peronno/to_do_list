@@ -23,7 +23,7 @@ class UserService {
       const { error } = await userSchema.validateAsync(userValue);
 
       if (error) {
-        return {message : error + 'retour erreur du user service'};
+        return error.message;
        
     }
     return userValue;   

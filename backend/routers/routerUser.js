@@ -15,10 +15,10 @@ routerUser.get('/:id', userController.getUser);
 /**
  * Protected route on method POST to create the current user's information
  * @method POST
- * @param {number} id
- * @returns the new datas
+ * @param {} 
+ * @returns a new json datas of user
  */
-routerUser.post('/', userController.createUser);
+routerUser.post('/', userController.registerUser);
 
 /**
  * Protected route on method POST to update the current user's information
@@ -26,7 +26,7 @@ routerUser.post('/', userController.createUser);
  * @param {number} id
  * @returns the new datas
  */
-routerUser.post('/:id', userController.updateUser);
+routerUser.patch('/:id', userController.updateUser);
 
 /**
  * Protected route on method DELETE to delete the current user

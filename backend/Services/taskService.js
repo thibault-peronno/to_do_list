@@ -17,10 +17,25 @@ class TaskServise {
     const { error } = await taskSchema.validateAsync(taskValue);
 
     if (error) {
-      return error;
+      return error.message;
     }
     return taskValue;
   };
+
+  validateUpdateTask = async (taskValue, createMod) => {
+    const taskSchema = Joi.object({
+      id : Joi.number().required(),
+      description : Joi.string(),
+      isDone : Joi.boolean(),
+    });
+
+    const { error } = await taskSchema.validateAsync(taskValue);
+
+    if (error) {
+      return error.message;
+    }
+    return taskValue;
+  }
 }
 
 export default TaskServise;
