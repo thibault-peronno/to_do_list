@@ -11,50 +11,42 @@ class UserModel {
 
   findCurrentUser = async (userId) => {
     try {
-      // return {message : 'test'};
-      // console.log("model id : " + userId);
       const [user] = await connectDB
         .promise()
         .query(
           "SELECT `id`, `lastname`, `firstname`, `identifiant` FROM `users` WHERE id = ? ",
           [userId]
-        );
-      // console.log("14 : " + JSON.stringify(user));
-      
+        );      
       return user;
     } catch (error) {
       return `utilisateur introuvable: ${error.message}, ${error}`;
-      // throw new Error(`utilisateur introuvable: ${error}`);
     }
   };
 
-  createNewUser = async (newUserValue)=>{
+  registerNewUser = async (newUserValue)=>{
     try{
       const checkValidation = await this.userService.validateNewUser(newUserValue);
-      // console.log('checkValidation : ');
-      // console.log(checkValidation);
-      const { firstname, lastname, identifiant, password } = newUserValue;
+      const { firstname, lastname, identifiant } = newUserValue;
+      let { password } = newUserValue;
+      const hashedPassword = await this.userService.hashPassword(password);
+      password = hashedPassword;
       const result = await connectDB
       .promise()
       .query("INSERT INTO `users` (firstname, lastname, identifiant, password) VALUES (?,?,?,?)", [firstname, lastname, identifiant, password]);
       return { id: result.id, firstname, lastname, identifiant };
     }catch(error){
-      // console.log('error user model ' + error);
-      return error;
+      console.log('erreur register user');
+      return error.message;
     }
   }
 
   updateUser = async (updateUserValue) => {
     try {
       await this.userService.validateUpdateUser(updateUserValue);
-
       const { firstname, lastname, identifiant, role, id } = updateUserValue;
-
       const result = await connectDB
       .promise()
       .query("UPDATE `users` SET firstname=?, lastname=?, identifiant=?, role=? WHERE id= ?", [firstname, lastname, identifiant, role, id]);
-      // console.log("result", result);
-
       const updateValue = await this.findCurrentUser(id);
       return updateValue;
     } catch (error) {
@@ -63,11 +55,8 @@ class UserModel {
 
   }
   deleteUser = async (deleteUserValue) =>{
-    console.log("delete user model");
-    console.log(deleteUserValue);
     try {
       await this.userService.validateDeleteUser(deleteUserValue);
-
       const { id } = deleteUserValue;
       const result = await connectDB
       .promise()
@@ -75,6 +64,19 @@ class UserModel {
       return result;
     } catch (error) {
       return error.messsage;
+    }
+  }
+
+  loginUser = async (nameValue) => {
+    try {
+      const [user] = await connectDB
+      .promise()
+      .query("SELECT `id`, `password` FROM `users` WHERE identifiant = ?", [nameValue]);
+      console.log("model user" , user);
+      return user[0];
+    } catch (error) {
+      console.log('error loginUser');
+      return error.message;
     }
   }
 }

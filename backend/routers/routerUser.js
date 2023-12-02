@@ -18,7 +18,7 @@ routerUser.get('/:id', userController.getUser);
  * @param {} 
  * @returns a new json datas of user
  */
-routerUser.post('/', userController.registerUser);
+routerUser.post('/register', userController.registerUser);
 
 /**
  * Protected route on method POST to update the current user's information

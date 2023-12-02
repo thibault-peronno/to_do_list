@@ -1,5 +1,6 @@
 import UserEntity from "../Entities/userEntity.js";
 import Joi from 'joi';
+import bcrypt from 'bcrypt';
 
 // const JoiWithHtmlInput = Joi.extend(htmlInput);
 
@@ -10,8 +11,6 @@ class UserService {
   }
 
   validateNewUser = async (userValue, createMod) => {
-    // console.log('validateUser service : ');
-    // console.log(userValue);
     const userSchema = Joi.object({
       firstname : Joi.string().required(),
       lastname : Joi.string().required(),
@@ -19,15 +18,11 @@ class UserService {
       password : Joi.string().required(),
     })
     // .xor('password', 'access_token') allow to switch check between password and access_token
- 
       const { error } = await userSchema.validateAsync(userValue);
-
       if (error) {
-        return error.message;
-       
+        return error.message; 
     }
-    return userValue;   
-    
+    return userValue;
   }
 
   validateUpdateUser = async (userValue, createMod) => {
@@ -53,6 +48,12 @@ class UserService {
     console.log("error", error);
 
     return error ? {message : error + 'retour erreur du user service'}: "";
+  }
+
+  hashPassword = async (passwordValue) => {
+    const hashedPassword = await bcrypt.hash(passwordValue, 10);
+    console.log(hashedPassword);
+    return hashedPassword;
   }
 
 }
