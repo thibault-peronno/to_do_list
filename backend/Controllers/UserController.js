@@ -1,8 +1,10 @@
 import UserModel from "../Models/user.js";
+import UserService from "../Services/userService.js";
 
 class UserController {
   constructor() {
     this.userModel = new UserModel();
+    this.userService = new UserService();
   }
 
   /**
@@ -43,6 +45,7 @@ class UserController {
   updateUser = async (req, res) => {
     const { body } = req;
     try {
+      await this.userService.validateUpdateUser(body);
       const updateUser = await this.userModel.updateUser(body);
       res.send(updateUser);
     } catch (error) {
@@ -59,6 +62,7 @@ class UserController {
   deleteUser = async (req, res) => {
     const { body } = req;
     try {
+      await this.userService.validateDeleteUser(deleteUserValue);
       const deleteUser = await this.userModel.deleteUser(body);
       res.send(deleteUser);
     } catch (error) {

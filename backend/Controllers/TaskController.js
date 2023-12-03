@@ -1,8 +1,10 @@
-import TaskModel from "../Models/task.js";
+import TaskModel from "../models/task.js";
+import TaskService from "../Services/taskService.js";
 
 class TaskController {
   constructor() {
     this.taskModel = new TaskModel();
+    this.taskService = new TaskService();
   }
 
   /**
@@ -18,6 +20,7 @@ class TaskController {
   createTask = async (req, res) => {
     try {
       const { body } = req;
+      await this.taskService.validateNewTask(body);
       const newTask = await this.taskModel.createTask(body);
       res.send(newTask);
     } catch (error) {
@@ -75,8 +78,9 @@ class TaskController {
    * "isDone"} res 
    */
   updateTask = async (req, res) => {
-    const { body } = req;
     try {
+      const { body } = req;
+      await this.taskService.validateUpdateTask(body);
       const taskUpdated = await this.taskModel.updateCurrentTask(body);
       res.send(taskUpdated);
     } catch (error) {

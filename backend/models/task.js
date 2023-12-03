@@ -3,13 +3,12 @@ import TaskService from "../Services/taskService.js";
 
 class TaskModel {
   constructor() {
-    this.taskService = new TaskService;
+    this.taskService = new TaskService();
   }
 
   createTask = async (taskValue) => {
     try {
-        const checkValidation = await this.taskService.validateNewTask(taskValue);
-        const { description, isDone, user_id } = taskValue;
+      const { description, isDone, user_id } = taskValue;
       const result = await connectDB
         .promise()
         .query(
@@ -52,33 +51,31 @@ class TaskModel {
 
   updateCurrentTask = async (taskValue) => {
     try {
-      await this.taskService.validateUpdateTask(taskValue);
-
       const { description, isDone, id } = taskValue;
-
       const result = await connectDB
-      .promise()
-      .query("UPDATE `tasks` SET description = ?, isDone = ? WHERE id=?", [description, isDone, id]);
+        .promise()
+        .query("UPDATE `tasks` SET description = ?, isDone = ? WHERE id=?", [
+          description,
+          isDone,
+          id,
+        ]);
       const updateValue = await this.findTaskOfCurrentUser(id);
-      console.log(updateValue);
       return updateValue;
     } catch (error) {
-      return error
+      return error;
     }
-  }
+  };
 
   deleteTask = async (deleteTaskId) => {
-    console.log("deleteTaskId", deleteTaskId);
     try {
       const result = await connectDB
-      .promise()
-      .query("DELETE FROM `tasks` WHERE `id`=?", [deleteTaskId]);
-      console.log("result", result);    
-      return result;  
+        .promise()
+        .query("DELETE FROM `tasks` WHERE `id`=?", [deleteTaskId]);
+      return result;
     } catch (error) {
-      return error.message
+      return error.message;
     }
-  }
+  };
 }
 
 export default TaskModel;
