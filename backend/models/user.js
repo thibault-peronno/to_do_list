@@ -19,7 +19,7 @@ class UserModel {
         );      
       return user;
     } catch (error) {
-      return `utilisateur introuvable: ${error.message}, ${error}`;
+      return error;
     }
   };
 
@@ -36,7 +36,7 @@ class UserModel {
       return { id: result.id, firstname, lastname, identifiant };
     }catch(error){
       console.log('erreur register user');
-      return error.message;
+      return error;
     }
   }
 

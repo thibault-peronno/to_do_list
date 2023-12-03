@@ -10,21 +10,6 @@ class UserService {
     this.userEntity = new UserEntity();
   }
 
-  validateNewUser = async (userValue, createMod) => {
-    const userSchema = Joi.object({
-      firstname : Joi.string().required(),
-      lastname : Joi.string().required(),
-      identifiant : Joi.string().email(),
-      password : Joi.string().required(),
-    })
-    // .xor('password', 'access_token') allow to switch check between password and access_token
-      const { error } = await userSchema.validateAsync(userValue);
-      if (error) {
-        return error.message; 
-    }
-    return userValue;
-  }
-
   validateUpdateUser = async (userValue, createMod) => {
     const userSchema = Joi.object({
       id: Joi.number(),

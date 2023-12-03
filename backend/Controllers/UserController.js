@@ -30,31 +30,6 @@ class UserController {
   /**
    *
    * @param {
-   * "firstname" ,
-   * "lastname",
-   * "identifiant",
-   * "password"} req
-   * @param {
-   * "firstname",
-   * "lastname",
-   * "identifiant"} res
-   */
-  registerUser = async (req, res) => {
-    const body = req.body;
-    try {
-      const registeredUser = await this.userModel.registerNewUser(body);
-      return res.status(201).json({
-        message: "Votre compte est créé",
-        registeredUser,
-      });
-    } catch (error) {
-      console.log("erreur register user");
-      return res.status(500).json({ error: error.message });
-    }
-  };
-  /**
-   *
-   * @param {
    * "id",
    * "firstname",
    * "lastname",
