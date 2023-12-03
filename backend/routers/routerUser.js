@@ -13,14 +13,6 @@ const userController = new UserController
 routerUser.get('/:id', userController.getUser);
 
 /**
- * Protected route on method POST to create the current user's information
- * @method POST
- * @param {} 
- * @returns a new json datas of user
- */
-routerUser.post('/register', userController.registerUser);
-
-/**
  * Protected route on method POST to update the current user's information
  * @method POST
  * @param {number} id

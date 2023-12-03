@@ -1,8 +1,10 @@
 import UserModel from "../Models/user.js";
+import UserService from "../Services/userService.js";
 
 class UserController {
   constructor() {
     this.userModel = new UserModel();
+    this.userService = new UserService();
   }
 
   /**
@@ -30,31 +32,6 @@ class UserController {
   /**
    *
    * @param {
-   * "firstname" ,
-   * "lastname",
-   * "identifiant",
-   * "password"} req
-   * @param {
-   * "firstname",
-   * "lastname",
-   * "identifiant"} res
-   */
-  registerUser = async (req, res) => {
-    const body = req.body;
-    try {
-      const registeredUser = await this.userModel.registerNewUser(body);
-      return res.status(201).json({
-        message: "Votre compte est créé",
-        registeredUser,
-      });
-    } catch (error) {
-      console.log("erreur register user");
-      return res.status(500).json({ error: error.message });
-    }
-  };
-  /**
-   *
-   * @param {
    * "id",
    * "firstname",
    * "lastname",
@@ -68,6 +45,7 @@ class UserController {
   updateUser = async (req, res) => {
     const { body } = req;
     try {
+      await this.userService.validateUpdateUser(body);
       const updateUser = await this.userModel.updateUser(body);
       res.send(updateUser);
     } catch (error) {
@@ -84,6 +62,7 @@ class UserController {
   deleteUser = async (req, res) => {
     const { body } = req;
     try {
+      await this.userService.validateDeleteUser(deleteUserValue);
       const deleteUser = await this.userModel.deleteUser(body);
       res.send(deleteUser);
     } catch (error) {

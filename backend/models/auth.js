@@ -7,6 +7,22 @@ class AuthModel {
         console.log(this.authEntity);
     }
 
+    registerNewUser = async (newUserValue)=>{
+      try{
+        const { firstname, lastname, identifiant } = newUserValue;
+        let { password } = newUserValue;
+        const hashedPassword = await this.userService.hashPassword(password);
+        password = hashedPassword;
+        const result = await connectDB
+        .promise()
+        .query("INSERT INTO `users` (firstname, lastname, identifiant, password) VALUES (?,?,?,?)", [firstname, lastname, identifiant, password]);
+        return { id: result.id, firstname, lastname, identifiant };
+      }catch(error){
+        console.log('erreur register user');
+        return error;
+      }
+    }
+
     loginUser = async (emailValue) => {
         try {
           const [user] = await connectDB
