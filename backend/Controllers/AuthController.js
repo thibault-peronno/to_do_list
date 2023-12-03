@@ -41,6 +41,7 @@ class AuthController {
 
   login = async (req, res) => {
     try {
+        await this.authService.ValidationLogin(req.body);
       const { identifiant, password } = req.body;
       if (!identifiant || !password) {
         // console.log("user absent or password is undefined");
@@ -68,7 +69,7 @@ class AuthController {
     } catch (error) {
       res
         .status(500)
-        .json({ error: "La connection a échouée", message: error.message });
+        .json({ error: "La connection a échouée", message: error });
     }
   };
 

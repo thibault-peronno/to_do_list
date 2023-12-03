@@ -6,8 +6,8 @@ class AuthService {
     this.authEntity = new AuthEntity();
   }
 
-  validationRegister = async (userValue, createMod) => {
-    const userSchema = Joi.object({
+  validationRegister = async (registerValue, createMod) => {
+    const registerSchema = Joi.object({
       firstname: Joi.string().required().messages({
         "any.required": "Votre prénom est obligatoire",
         "string.base": "Votre prénom doit être une chaine de caractère",
@@ -33,11 +33,33 @@ class AuthService {
       }),
     });
     // .xor('password', 'access_token') allow to switch check between password and access_token
-    const { error } = await userSchema.validateAsync(userValue, { abortEarly: false });
+    const { error } = await registerSchema.validateAsync(registerValue, { abortEarly: false });
     if (error) {
       return error;
     }
-    return userValue;
+    return registerValue;
+  };
+
+  ValidationLogin = async (loginValue, createMod) => {
+    const loginSchema = Joi.object({
+      identifiant: Joi.string()
+        .email()
+        .required()
+        .messages({
+          "any.required": "Votre identifiant est obligatoire",
+          "string.email": "Votre identifiant doit être un email valide",
+        }),
+      password: Joi.string().required().min(13).messages({
+        "any.required": "password : Votre mot de passe est obligatoire",
+        "string.min": "Votre mot de passe doit contenir 13 caractères minimum",
+      }),
+    });
+    // .xor('password', 'access_token') allow to switch check between password and access_token
+    const { error } = await loginSchema.validateAsync(loginValue, { abortEarly: false });
+    if (error) {
+      return error;
+    }
+    return loginValue;
   };
 }
 
