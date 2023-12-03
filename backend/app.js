@@ -1,19 +1,22 @@
-const express = require('express');
-const connectDB = require('./config/db');
-const dotenv = require('dotenv').config();
-console.log(dotenv);
-const port = 3000;
+import express from 'express';
+import router from './routers/routes.js';
+import dotenv from 'dotenv/config';
 
-connectDB();
+// const cookieParser = require("cookie-parser");
+import cors from 'cors';
+const  port = 3000;
+
+
+// console.log('log connection db ' + connectDB);
 const app = express();
 
 // Middleware qui permet de traiter les données de la Request
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+// app.use(cookieParser());
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+// console.log(router);
+app.use(router);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
