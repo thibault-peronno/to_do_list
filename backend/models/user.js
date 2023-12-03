@@ -67,18 +67,7 @@ class UserModel {
     }
   }
 
-  loginUser = async (nameValue) => {
-    try {
-      const [user] = await connectDB
-      .promise()
-      .query("SELECT `id`, `password` FROM `users` WHERE identifiant = ?", [nameValue]);
-      console.log("model user" , user);
-      return user[0];
-    } catch (error) {
-      console.log('error loginUser');
-      return error.message;
-    }
-  }
+  
 }
 
 export default UserModel;

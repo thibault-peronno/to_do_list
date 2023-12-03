@@ -17,7 +17,7 @@ class AuthController {
                 // console.log("user absent or password is undefined");
                 return res.status(401).json({error: "Authentification échouée"});
                }
-            const isUser = await this.userModel.loginUser(identifiant);
+            const isUser = await this.authModel.loginUser(identifiant);
             // console.log("auth controller", isUser);
             if(!isUser){
                 // console.log("user absent");
@@ -30,14 +30,20 @@ class AuthController {
                 return res.status(401).json({error: "Authentification échouée"});
             }
             const token = jwt.sign({ userID : isUser.id}, process.env.JWT_SECRET , {expiresIn : process.env.JWT_SECRET_EXPIRE})
-            res.status(200).json({token, userID : isUser.id})
+            //in production mode, change secure by true and add domain option.
+            res.cookie("auth_cookies", token, {httpOnly: true, secure:false});
+            // res.status(200).json({token, userID : isUser.id})
+            res.status(200).json({userID : isUser.id});
+
         } catch (error) {
             res.status(500).json({error : "La connection a échouée",
         message : error.message});
         }
     };
 
-    logout = async (req, res) => {res.json({message:'AuthController.logout in controller'})};
+    logout = async (req, res) => {
+        res.clearCookie("auth_token").sendStatus(200);    
+    };
 }
 
 export default AuthController;

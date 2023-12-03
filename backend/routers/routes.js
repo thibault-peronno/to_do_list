@@ -3,13 +3,14 @@ import express from 'express';
 import authRouter from './routerAuth.js'
 import userRouter from './routerUser.js';
 import taskRouter from './routerTask.js';
+import authMiddleware from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
 router.get('/', (req, res) => {res.json({message:'callback'})});
 
 router.use('/api/auth', authRouter);
-router.use('/api/user', userRouter);
-router.use('/api/task', taskRouter);
+router.use('/api/user', authMiddleware.checkToken, userRouter);
+router.use('/api/task', authMiddleware.checkToken, taskRouter);
 
 export default router;
