@@ -27,7 +27,7 @@ class AuthModel {
         try {
           const [user] = await connectDB
           .promise()
-          .query("SELECT `id`, `password` FROM `users` WHERE identifiant = ?", [emailValue]);
+          .query("SELECT `id`, `password`, `lastname`, `firstname` FROM `users` WHERE identifiant = ?", [emailValue]);
           console.log("model user" , user);
           return user[0];
         } catch (error) {
