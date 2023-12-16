@@ -22,6 +22,7 @@ class TaskController {
       const { body } = req;
       await this.taskService.validateNewTask(body);
       const newTask = await this.taskModel.createTask(body);
+      console.log('newtask', newTask);
       res.send(newTask);
     } catch (error) {
       res.send(error);

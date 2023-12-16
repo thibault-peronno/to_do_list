@@ -4,7 +4,7 @@ import AuthService from "../Services/authService.js";
 class AuthModel {
     constructor(){
         this.authService = new AuthService;
-        console.log(this.authEntity);
+        // console.log(this.authEntity);
     }
 
     registerNewUser = async (newUserValue)=>{

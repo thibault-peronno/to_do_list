@@ -1,13 +1,13 @@
 import mysql from "mysql2";
 import dotenv from "dotenv/config";
 
-console.log(
-  process.env.HOST,
-  process.env.PORT,
-  process.env.USER,
-  process.env.PASSWORD,
-  process.env.DATABASE
-);
+// console.log(
+//   process.env.HOST,
+//   process.env.PORT,
+//   process.env.USER,
+//   process.env.PASSWORD,
+//   process.env.DATABASE
+// );
 
 // const connectDB = mysql.createConnection({
 //   // host: process.env.HOST,

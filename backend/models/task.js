@@ -9,13 +9,17 @@ class TaskModel {
   createTask = async (taskValue) => {
     try {
       const { description, isDone, user_id } = taskValue;
-      const result = await connectDB
+      const [result, metadata] = await connectDB
         .promise()
         .query(
           "INSERT INTO `tasks` (`description`, `isDone`, `user_id`) VALUES (?,?,?)",
           [description, isDone, user_id]
         );
-      return { id: result.id, description, isDone };
+        console.log('result', result);
+        console.log('metadata', metadata);
+        const newTask = await this.findTaskOfCurrentUser(result.insertId)
+        console.log('new task', newTask);
+      return newTask;
     } catch (error) {
       return error;
     }
@@ -35,13 +39,13 @@ class TaskModel {
     }
   };
 
-  findTaskOfCurrentUser = async (userId) => {
+  findTaskOfCurrentUser = async (taskId) => {
     try {
       const [task] = await connectDB
         .promise()
         .query(
           "SELECT `id`, `description`, `isDone` FROM `tasks` WHERE id= ?",
-          [userId]
+          [taskId]
         );
       return task;
     } catch (error) {
