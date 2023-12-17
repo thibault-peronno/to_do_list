@@ -26,7 +26,7 @@ routerTask.get('/:id', taskController.getTask);
  * @param {id}
  * @returns an update of current task in json
  */
-routerTask.patch('/:id', taskController.updateTask);
+routerTask.put('/:id', taskController.updateTask);
 
 /**
  * Protected route on method POST to update the current task

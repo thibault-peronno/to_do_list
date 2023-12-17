@@ -30,18 +30,21 @@ class TaskServise {
   };
 
   validateUpdateTask = async (taskValue, createMod) => {
+    // console.log('validation', taskValue);
     const taskSchema = Joi.object({
-      id : Joi.number().required().messages({
-        "any.required": "L'id est obligatoire pour modifier la bonne tâche",
-        "number.base": "la valeur doit être un nombre",
-      }),
-      description : Joi.string().messages({
-        "string.base": "Votre description doit être une chaine de caractère",
-        "string.empty": "Votre description est obligatoire",
-      }),
-      isDone : Joi.boolean().messages({
-        "boolean.base": "la propriété isdone doit être un boolean",
-      }),
+      task: Joi.object({
+        id : Joi.number().required().messages({
+          "any.required": "L'id est obligatoire pour modifier la bonne tâche",
+          "number.base": "la valeur doit être un nombre",
+        }),
+        description : Joi.string().messages({
+          "string.base": "Votre description doit être une chaine de caractère",
+          "string.empty": "Votre description est obligatoire",
+        }),
+        isdone : Joi.boolean().messages({
+          "boolean.base": "la propriété isdone doit être un boolean",
+        }),
+      })
     });
 
     const { error } = await taskSchema.validateAsync(taskValue);

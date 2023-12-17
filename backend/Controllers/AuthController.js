@@ -34,7 +34,6 @@ class AuthController {
         registeredUser,
       });
     } catch (error) {
-      console.log("erreur register user", error);
       return res.status(500).json({ error });
     }
   };
@@ -58,7 +57,6 @@ class AuthController {
         expiresIn: process.env.JWT_SECRET_EXPIRE,
       });
       //in production mode, change secure by true and add domain option.
-      // console.log(isUser);
       res.cookie("auth_cookies", token, { httpOnly: true, secure: false });
       res.status(200).json({ userID: isUser.id, name:isUser.firstname, lastname: isUser.lastname });
     } catch (error) {

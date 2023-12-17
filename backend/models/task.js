@@ -15,10 +15,7 @@ class TaskModel {
           "INSERT INTO `tasks` (`description`, `isDone`, `user_id`) VALUES (?,?,?)",
           [description, isDone, user_id]
         );
-        console.log('result', result);
-        console.log('metadata', metadata);
-        const newTask = await this.findTaskOfCurrentUser(result.insertId)
-        console.log('new task', newTask);
+        const newTask = await this.findTaskOfCurrentUser(result.insertId);
       return newTask;
     } catch (error) {
       return error;
@@ -53,19 +50,21 @@ class TaskModel {
     }
   };
 
-  updateCurrentTask = async (taskValue) => {
+  updateTask = async (taskValue) => {
+    console.log('model', taskValue);
     try {
-      const { description, isDone, id } = taskValue;
+      console.log('try');
+      const { description, isdone, id } = taskValue.task;
       const result = await connectDB
         .promise()
-        .query("UPDATE `tasks` SET description = ?, isDone = ? WHERE id=?", [
+        .query("UPDATE `tasks` SET description = ?, isdone = ? WHERE id=?", [
           description,
-          isDone,
+          isdone,
           id,
         ]);
-      const updateValue = await this.findTaskOfCurrentUser(id);
-      return updateValue;
+      return result;
     } catch (error) {
+      console.log('catch');
       return error;
     }
   };

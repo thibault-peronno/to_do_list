@@ -22,8 +22,7 @@ class TaskController {
       const { body } = req;
       await this.taskService.validateNewTask(body);
       const newTask = await this.taskModel.createTask(body);
-      console.log('newtask', newTask);
-      res.send(newTask);
+      res.status(201).send(newTask);
     } catch (error) {
       res.send(error);
     }
@@ -82,10 +81,17 @@ class TaskController {
     try {
       const { body } = req;
       await this.taskService.validateUpdateTask(body);
-      const taskUpdated = await this.taskModel.updateCurrentTask(body);
-      res.send(taskUpdated);
+      const [result] = await this.taskModel.updateTask(body);
+      if (result.affectedRows === 0) {
+        return res.sendStatus(404);
+      } else {
+        return res.status(204).json({data : 'Mise à jour du status de la tâche'});
+      }
+      
     } catch (error) {
-      return error;
+      return res
+        .status(500)
+        .json({ error: "La mise à jour a échouée", message: error });
     }
   };
 
@@ -97,12 +103,10 @@ class TaskController {
   deleteTask = async (req, res) => {
     try {
       const id = parseInt(req.params.id);
-      console.log("id" , id);
       if (isNaN(id)) throw new Error();
       const task = await this.taskModel.deleteTask(id);
       res.send({ message: "la tâche a été supprimé", status: "ok" });
     } catch (error) {
-      console.log("eeror " + error);
       res.json({ message: `message d'erreur : ${error}, ${error.statut}` });
     }
   };
