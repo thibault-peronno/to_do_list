@@ -78,10 +78,13 @@ class TaskController {
    * "isDone"} res 
    */
   updateTask = async (req, res) => {
+    console.log('update controller', req.body);
     try {
+      // console.log(body);
       const { body } = req;
-      await this.taskService.validateUpdateTask(body);
-      const [result] = await this.taskModel.updateTask(body);
+      // await this.taskService.validateUpdateTask(body);
+      const result = await this.taskModel.updateTask(body);
+      // console.log('result controller', result);
       if (result.affectedRows === 0) {
         return res.sendStatus(404);
       } else {
@@ -89,6 +92,7 @@ class TaskController {
       }
       
     } catch (error) {
+      // console.log(error);
       return res
         .status(500)
         .json({ error: "La mise à jour a échouée", message: error });

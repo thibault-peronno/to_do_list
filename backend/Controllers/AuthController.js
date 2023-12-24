@@ -46,6 +46,7 @@ class AuthController {
         return res.status(401).json({ error: "Authentification échouée" });
       }
       const isUser = await this.authModel.loginUser(identifiant);
+      console.log('isUser', isUser);
       if (!isUser) {
         return res.status(401).json({ error: "Authentification échouée" });
       }
@@ -58,7 +59,7 @@ class AuthController {
       });
       //in production mode, change secure by true and add domain option.
       res.cookie("auth_cookies", token, { httpOnly: true, secure: false });
-      res.status(200).json({ userID: isUser.id, name:isUser.firstname, lastname: isUser.lastname });
+      res.status(200).json({ userID: isUser.id, name:isUser.firstname, lastname: isUser.lastname, email: isUser.identifiant });
     } catch (error) {
       res
         .status(500)

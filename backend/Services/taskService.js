@@ -50,6 +50,7 @@ class TaskServise {
     const { error } = await taskSchema.validateAsync(taskValue);
 
     if (error) {
+      console.log(error);
       return error.message;
     }
     return taskValue;

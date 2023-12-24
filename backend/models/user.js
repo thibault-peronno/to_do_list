@@ -24,13 +24,14 @@ class UserModel {
   };
 
   updateUser = async (updateUserValue) => {
+    console.log('model user', updateUserValue);
     try {
-      const { firstname, lastname, identifiant, role, id } = updateUserValue;
+      const { firstname, lastname, identifiant, id } = updateUserValue;
       const result = await connectDB
         .promise()
         .query(
-          "UPDATE `users` SET firstname=?, lastname=?, identifiant=?, role=? WHERE id= ?",
-          [firstname, lastname, identifiant, role, id]
+          "UPDATE `users` SET firstname=?, lastname=?, identifiant=? WHERE id= ?",
+          [firstname, lastname, identifiant, id]
         );
       const updateValue = await this.findCurrentUser(id);
       return updateValue;

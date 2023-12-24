@@ -45,11 +45,32 @@ class UserController {
   updateUser = async (req, res) => {
     const { body } = req;
     try {
-      await this.userService.validateUpdateUser(body);
+      console.log('updateuser', body);
+      // await this.userService.validateUpdateUser(body);
+      console.log('après validation');
       const updateUser = await this.userModel.updateUser(body);
-      res.send(updateUser);
+      console.log(updateUser);
+      if (updateUser.length < 0) {
+        console.log('404');
+        return res.status(404).json({
+          status: 'error',
+          message: "L'utilisateur n' pas pu être mis à jour",
+          data: body
+        });
+      } else {
+        console.log('200');
+        return res.status(200).json({
+          message : "Mise à jour de l'utilisateur",
+          data:updateUser
+      });
+      }
     } catch (error) {
-      res.send(error);
+      console.log('422');
+      return res.status(422).json({
+        status: 'error',
+        message: 'Invalid request data',
+        data: body
+      });
     }
   };
 

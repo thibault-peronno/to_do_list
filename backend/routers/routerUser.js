@@ -18,7 +18,7 @@ routerUser.get('/:id', userController.getUser);
  * @param {number} id
  * @returns the new datas
  */
-routerUser.patch('/:id', userController.updateUser);
+routerUser.put('/:id', userController.updateUser);
 
 /**
  * Protected route on method DELETE to delete the current user

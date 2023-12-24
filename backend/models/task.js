@@ -51,10 +51,10 @@ class TaskModel {
   };
 
   updateTask = async (taskValue) => {
-    console.log('model', taskValue);
+    // console.log('model', taskValue);
     try {
-      console.log('try');
-      const { description, isdone, id } = taskValue.task;
+      // console.log('try');
+      const { description, isdone, id } = taskValue;
       const result = await connectDB
         .promise()
         .query("UPDATE `tasks` SET description = ?, isdone = ? WHERE id=?", [
@@ -64,7 +64,7 @@ class TaskModel {
         ]);
       return result;
     } catch (error) {
-      console.log('catch');
+      // console.log('catch');
       return error;
     }
   };
