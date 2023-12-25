@@ -34,6 +34,7 @@ class UserModel {
           [firstname, lastname, identifiant, id]
         );
       const updateValue = await this.findCurrentUser(id);
+      console.log(updateValue);
       return updateValue;
     } catch (error) {
       return error;

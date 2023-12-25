@@ -57,18 +57,26 @@ class UserController {
           message: "L'utilisateur n' pas pu être mis à jour",
           data: body
         });
-      } else {
+      } else if(updateUser.length > 0) {
         console.log('200');
         return res.status(200).json({
+          status :'ok',
           message : "Mise à jour de l'utilisateur",
           data:updateUser
       });
-      }
+      }else{
+        console.log('500');
+        return res.status(500).json({
+          status :'error',
+          message : "Erreur serveur",
+          data:updateUser
+      });
+    }
     } catch (error) {
       console.log('422');
-      return res.status(422).json({
+      return res.status(500).json({
         status: 'error',
-        message: 'Invalid request data',
+        message: 'Erreur serveur',
         data: body
       });
     }

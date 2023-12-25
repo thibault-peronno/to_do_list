@@ -59,7 +59,7 @@ class AuthController {
       });
       //in production mode, change secure by true and add domain option.
       res.cookie("auth_cookies", token, { httpOnly: true, secure: false });
-      res.status(200).json({ userID: isUser.id, name:isUser.firstname, lastname: isUser.lastname, email: isUser.identifiant });
+      res.status(200).json({ id: isUser.id, firstname:isUser.firstname, lastname: isUser.lastname, email: isUser.identifiant });
     } catch (error) {
       res
         .status(500)
