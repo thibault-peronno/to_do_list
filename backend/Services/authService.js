@@ -1,5 +1,6 @@
 import AuthEntity from "../Entities/authEntity.js";
 import Joi from "joi";
+import bcrypt from "bcrypt";
 
 class AuthService {
   constructor() {
@@ -60,6 +61,18 @@ class AuthService {
       return error;
     }
     return loginValue;
+  };
+
+  hashPassword = async (passwordValue) => {
+    try {
+      console.log('hash password', passwordValue);
+      const hashedPassword = await bcrypt.hash(passwordValue, 10);
+      console.log(hashedPassword);
+      return hashedPassword;
+      
+    } catch (error) {
+      return error;
+    }
   };
 }
 

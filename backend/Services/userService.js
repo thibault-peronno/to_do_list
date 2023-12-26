@@ -1,6 +1,6 @@
 import UserEntity from "../Entities/userEntity.js";
 import Joi from "joi";
-import bcrypt from "bcrypt";
+
 
 // const JoiWithHtmlInput = Joi.extend(htmlInput);
 
@@ -50,12 +50,6 @@ class UserService {
       return error;
     }
     return uservalue;
-  };
-
-  hashPassword = async (passwordValue) => {
-    const hashedPassword = await bcrypt.hash(passwordValue, 10);
-    console.log(hashedPassword);
-    return hashedPassword;
   };
 }
 

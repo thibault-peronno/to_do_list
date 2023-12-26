@@ -25,14 +25,19 @@ class AuthController {
    * "identifiant"} res
    */
   registerUser = async (req, res) => {
-    const body = req.body;
+    console.log('registerUser', req.body);
+    const { body } = req;
     try {
       await this.authService.validationRegister(body);
       const registeredUser = await this.authModel.registerNewUser(body);
-      return res.status(201).json({
-        message: "Votre compte est créé",
-        registeredUser,
-      });
+      console.log(registeredUser);
+      if(registeredUser.emailExist){
+        return res.status(409).json({message : registeredUser.message});
+      }else if(registeredUser[0].affectedRows == 1){
+        return res.status(201).json({
+          message: "Votre compte est créé",
+        });
+      }
     } catch (error) {
       return res.status(500).json({ error });
     }
