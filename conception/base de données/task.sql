@@ -1,4 +1,4 @@
-INSERT INTO tasks (description, isdone, user_id)
+INSERT INTO tasks (description, isDone, user_id)
  VALUES
  ('Chercher du pain', true, 5),
  ('Aller chez le dentiste', false, 6),

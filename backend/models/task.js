@@ -23,11 +23,12 @@ class TaskModel {
   };
 
   findTasksOfCurrentUser = async (userId) => {
+    console.log('find tasks', userId);
     try {
       const [tasks] = await connectDB
         .promise()
         .query(
-          "SELECT `id`, `description`, `isdone` FROM `tasks` WHERE user_id = ?",
+          "SELECT `id`, `description`, `isDone` FROM `tasks` WHERE user_id = ?",
           [userId]
         );
       return tasks;
@@ -51,15 +52,15 @@ class TaskModel {
   };
 
   updateTask = async (taskValue) => {
-    // console.log('model', taskValue);
+    console.log('model update', taskValue);
     try {
       // console.log('try');
-      const { description, isdone, id } = taskValue;
+      const { description, isDone, id } = taskValue;
       const result = await connectDB
         .promise()
-        .query("UPDATE `tasks` SET description = ?, isdone = ? WHERE id=?", [
+        .query("UPDATE `tasks` SET description = ?, isDone = ? WHERE id=?", [
           description,
-          isdone,
+          isDone,
           id,
         ]);
       return result;

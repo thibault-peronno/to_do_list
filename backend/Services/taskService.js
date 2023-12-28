@@ -15,7 +15,7 @@ class TaskServise {
       }),
       isDone : Joi.boolean().required().messages({
         "any.required": "Nous devons savoir si la tâche est finie",
-        "boolean.base": "la propriété isdone doit être un boolean",
+        "boolean.base": "la propriété isDone doit être un boolean",
       }),
       user_id : Joi.number().required().messages({
         "any.required": "l'id de l'utlisateur est requis",
@@ -23,16 +23,17 @@ class TaskServise {
       }),
     });
     const { error } = await taskSchema.validateAsync(taskValue, { abortEarly: false });
+    console.log('error task service', error);
     if (error) {
       return error;
     }
+    console.log('task value', taskValue);
     return taskValue;
   };
 
   validateUpdateTask = async (taskValue, createMod) => {
-    // console.log('validation', taskValue);
+    console.log('validation', taskValue);
     const taskSchema = Joi.object({
-      task: Joi.object({
         id : Joi.number().required().messages({
           "any.required": "L'id est obligatoire pour modifier la bonne tâche",
           "number.base": "la valeur doit être un nombre",
@@ -41,10 +42,9 @@ class TaskServise {
           "string.base": "Votre description doit être une chaine de caractère",
           "string.empty": "Votre description est obligatoire",
         }),
-        isdone : Joi.boolean().messages({
-          "boolean.base": "la propriété isdone doit être un boolean",
+        isDone : Joi.boolean().messages({
+          "boolean.base": "la propriété isDone doit être un boolean",
         }),
-      })
     });
 
     const { error } = await taskSchema.validateAsync(taskValue);

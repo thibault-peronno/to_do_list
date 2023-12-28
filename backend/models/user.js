@@ -24,7 +24,7 @@ class UserModel {
   };
 
   updateUser = async (updateUserValue) => {
-    console.log('model user', updateUserValue);
+    // console.log('model user', updateUserValue);
     try {
       const { firstname, lastname, identifiant, id } = updateUserValue;
       const result = await connectDB
