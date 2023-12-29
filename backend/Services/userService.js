@@ -10,7 +10,7 @@ class UserService {
   }
 
   validateUpdateUser = async (userValue, createMod) => {
-    console.log('validation', userValue);
+    // console.log('validation', userValue);
     const userSchema = Joi.object({
       id: Joi.number().required().messages({
         "any.required": "L'id utilisateur est obligatoire",
@@ -27,14 +27,15 @@ class UserService {
       }),
     });
     console.trace();
-    console.log('userSchema', userSchema);
-    const { error } = await userSchema.validateAsync(userValue, { abortEarly: false });
+    // console.log('userSchema', userSchema);
+    const { error } = await userSchema.validate
+(userValue, { abortEarly: false });
     console.log(error);
     if (error) {
-      console.log('erreru validation', error);
+      // console.log('erreru validation', error);
       return error;
     }
-    console.log('return', userValue);
+    // console.log('return', userValue);
     return userValue;
   };
 
@@ -45,7 +46,8 @@ class UserService {
         "number.base": "la valeur doit être un nombre",
       }),
     });
-    const { error } = await userSchema.validateAsync(userValue, { abortEarly: false });
+    const { error } = await userSchema.validate
+(userValue, { abortEarly: false });
     if (error) {
       return error;
     }

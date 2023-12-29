@@ -34,7 +34,8 @@ class AuthService {
       }),
     });
     // .xor('password', 'access_token') allow to switch check between password and access_token
-    const { error } = await registerSchema.validateAsync(registerValue, { abortEarly: false });
+    const { error } = await registerSchema.validate
+(registerValue, { abortEarly: false });
     if (error) {
       return error;
     }
@@ -56,7 +57,8 @@ class AuthService {
       }),
     });
     // .xor('password', 'access_token') allow to switch check between password and access_token
-    const { error } = await loginSchema.validateAsync(loginValue, { abortEarly: false });
+    const { error } = await loginSchema.validate
+(loginValue, { abortEarly: false });
     if (error) {
       return error;
     }
