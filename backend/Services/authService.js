@@ -8,6 +8,7 @@ class AuthService {
   }
 
   validationRegister = async (registerValue, createMod) => {
+    console.log('register', registerValue);
     const registerSchema = Joi.object({
       firstname: Joi.string().required().messages({
         "any.required": "Votre prénom est obligatoire",
@@ -34,9 +35,12 @@ class AuthService {
       }),
     });
     // .xor('password', 'access_token') allow to switch check between password and access_token
-    const { error } = await registerSchema.validate
+    const error = await registerSchema.validate
 (registerValue, { abortEarly: false });
     if (error) {
+      console.log('auth service erreur', error);
+      throw error;
+      console.log(('register error', error));
       return error;
     }
     return registerValue;

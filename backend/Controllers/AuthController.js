@@ -28,9 +28,10 @@ class AuthController {
     console.log('registerUser', req.body);
     const { body } = req;
     try {
-      await this.authService.validationRegister(body);
+      const errorValidation = await this.authService.validationRegister(body);
       const registeredUser = await this.authModel.registerNewUser(body);
-      console.log(registeredUser);
+      console.log('ligne 33 auth controller', registeredUser);
+      console.log('ligne 34 auth controller', errorValidation);
       if(registeredUser.emailExist){
         return res.status(409).json({message : registeredUser.message});
       }else if(registeredUser[0].affectedRows == 1){
@@ -39,7 +40,8 @@ class AuthController {
         });
       }
     } catch (error) {
-      return res.status(500).json({ error });
+      console.log('ligne 43', error);
+      return res.status(403).json(error);
     }
   };
 
