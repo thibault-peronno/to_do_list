@@ -27,7 +27,7 @@ class TaskController {
       return res.status(201).send(newTask);
     } catch (error) {
       console.log('error create task', error);
-      return res.status(500).json({message : error});
+      return res.status(400).json(error);
     }
   };
 
@@ -47,7 +47,8 @@ class TaskController {
       console.log('tasks get', tasks);
       res.send(tasks);
     } catch (error) {
-      res.json({ message: error });
+      console.log('ligne 50 task controlle' , error);
+      res.json(error);
     }
   };
 
