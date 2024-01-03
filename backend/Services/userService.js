@@ -16,13 +16,15 @@ class UserService {
         "any.required": "L'id utilisateur est obligatoire",
         "number.base": "la valeur doit être un nombre",
       }),
-      firstname: Joi.string().messages({
-        "string.base": "Votre nom doit être une chaine de caractère",
+      firstname: Joi.string().required().messages({
+        "string.base": "Votre prénom doit être renseigné",
+        "string.empty": "Votre prénom est obligatoire",
       }),
-      lastname: Joi.string().messages({
-        "string.base": "Votre nom doit être une chaine de caractère",
+      lastname: Joi.string().required().messages({
+        "string.base": "Votre nom doit être renseigné",
+        "string.empty": "Votre nom est obligatoire",
       }),
-      identifiant: Joi.email().messages({
+      identifiant: Joi.string().email().messages({
         "string.email": "Votre identifiant doit être un email valide",
       }),
     });
@@ -32,8 +34,8 @@ class UserService {
 (userValue, { abortEarly: false });
     console.log(error);
     if (error) {
-      // console.log('erreru validation', error);
-      return error;
+      console.log('erreur validation', error);
+      throw error;
     }
     // console.log('return', userValue);
     return userValue;

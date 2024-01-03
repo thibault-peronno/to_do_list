@@ -46,7 +46,7 @@ class UserController {
     const { body } = req;
     try {
       console.log('updateuser', body);
-      // await this.userService.validateUpdateUser(body);
+      await this.userService.validateUpdateUser(body);
       console.log('après validation');
       const updateUser = await this.userModel.updateUser(body);
       console.log(updateUser);
@@ -73,12 +73,8 @@ class UserController {
       });
     }
     } catch (error) {
-      console.log('422');
-      return res.status(500).json({
-        status: 'error',
-        message: 'Erreur serveur',
-        data: body
-      });
+      console.log('422', error);
+      return res.status(400).json(error);
     }
   };
 
