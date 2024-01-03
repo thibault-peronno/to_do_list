@@ -28,10 +28,12 @@ class AuthService {
         .messages({
           "any.required": "Votre identifiant est obligatoire",
           "string.email": "Votre identifiant doit être un email valide",
+          "string.empty": "Veuillez renseigner un email",
         }),
       password: Joi.string().required().min(13).messages({
         "any.required": "password : Votre mot de passe est obligatoire",
         "string.min": "Votre mot de passe doit contenir 13 caractères minimum",
+        "string.empty": "Veuillez renseigner un mot de passe de 13 caractères minimum",
       }),
     });
     // .xor('password', 'access_token') allow to switch check between password and access_token
