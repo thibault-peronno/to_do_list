@@ -25,29 +25,29 @@ class AuthController {
    * "identifiant"} res
    */
   registerUser = async (req, res) => {
-    console.log('registerUser', req.body);
+    // console.log('registerUser', req.body);
     const { body } = req;
     try {
       const errorValidation = await this.authService.validationRegister(body);
       const registeredUser = await this.authModel.registerNewUser(body);
-      console.log('ligne 33 auth controller', registeredUser);
-      console.log('ligne 34 auth controller', errorValidation);
-      if(registeredUser.emailExist){
-        return res.status(409).json({message : registeredUser.message});
-      }else if(registeredUser[0].affectedRows == 1){
+      // console.log('ligne 33 auth controller', registeredUser);
+      // console.log('ligne 34 auth controller', errorValidation);
+      if (registeredUser.emailExist) {
+        return res.status(409).json({ message: registeredUser.message });
+      } else if (registeredUser[0].affectedRows == 1) {
         return res.status(201).json({
           message: "Votre compte est créé",
         });
       }
     } catch (error) {
-      console.log('ligne 43', error);
-      return res.status(403).json(error);
+      // console.log('ligne 43', error);
+      return res.status(400).json(error);
     }
   };
 
   login = async (req, res) => {
     try {
-        await this.authService.ValidationLogin(req.body);
+      await this.authService.ValidationLogin(req.body);
       const { identifiant, password } = req.body;
       if (!identifiant || !password) {
         return res.status(401).json({ error: "Authentification échouée" });
@@ -66,7 +66,14 @@ class AuthController {
       });
       //in production mode, change secure by true and add domain option.
       res.cookie("auth_cookies", token, { httpOnly: true, secure: false });
-      res.status(200).json({ id: isUser.id, firstname:isUser.firstname, lastname: isUser.lastname, email: isUser.identifiant });
+      res
+        .status(200)
+        .json({
+          id: isUser.id,
+          firstname: isUser.firstname,
+          lastname: isUser.lastname,
+          email: isUser.identifiant,
+        });
     } catch (error) {
       res
         .status(500)
