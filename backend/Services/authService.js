@@ -37,7 +37,7 @@ class AuthService {
       }),
     });
     // .xor('password', 'access_token') allow to switch check between password and access_token
-    const error = await registerSchema.validate
+    const {error} = await registerSchema.validate
 (registerValue, { abortEarly: false });
     if (error) {
       console.log('auth service erreur', error);
