@@ -81,6 +81,41 @@ class AuthController {
     }
   };
 
+  loginMobil = async (req, res) => {
+    try {
+      await this.authService.ValidationLogin(req.body);
+      const { identifiant, password } = req.body;
+      if (!identifiant || !password) {
+        return res.status(401).json({ error: "Authentification échouée" });
+      }
+      const isUser = await this.authModel.loginUser(identifiant);
+      // console.log('isUser', isUser);
+      if (!isUser) {
+        return res.status(401).json({ error: "Authentification échouée" });
+      }
+      const passwordMatch = await bcrypt.compare(password, isUser.password);
+      if (!passwordMatch) {
+        return res.status(401).json({ error: "Authentification échouée" });
+      }
+      const token = jwt.sign({ userID: isUser.id }, process.env.JWT_SECRET, {
+        expiresIn: process.env.JWT_SECRET_EXPIRE,
+      });
+      res
+        .status(200)
+        .json({
+          id: isUser.id,
+          firstname: isUser.firstname,
+          lastname: isUser.lastname,
+          email: isUser.identifiant,
+          token : token
+        });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ error: "La connection a échouée", message: error });
+    }
+  };
+
   logout = async (req, res) => {
     return res.clearCookie("auth_token").sendStatus(200);
   };

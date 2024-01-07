@@ -20,6 +20,13 @@ routerAuth.post('/register', authController.registerUser);
 routerAuth.post('/login', authController.login);
 
 /**
+ * Public route on method POST is using to connect at the app
+ * @method POST
+ * @returns Promise
+ */
+routerAuth.post('/login-mobil', authController.loginMobil);
+
+/**
  * Protected route on method GET is using to disconnect at the app
  * @method GET
  * @returns Promise
