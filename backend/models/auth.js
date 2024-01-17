@@ -25,7 +25,6 @@ class AuthModel {
         .query("INSERT INTO `users` (firstname, lastname, identifiant, password) VALUES (?,?,?,?)", [firstname, lastname, identifiant, password]);
         console.log('result register auth model', result);
         return result;
-        return { id: result.id, firstname, lastname, identifiant };
       }catch(error){
         console.log('erreur register user', error);
         return error;
