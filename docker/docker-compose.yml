@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  # service Node JS
+  app:
+    build: .
+    ports:
+      -"8080:8080"
+    depends_on:
+      - mysqldb
+      - adminer
+    env_file:
+      - .env
+  # Service MySql
+  mysqldb:
+    image: mysql:8.0.3
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=${}
+      - MYSQL_DATABASE=${}
+    ports:
+      -"3306":"3306"
+    volumes:
+      -db_data:/var/lib/mysql
+  # service Adminer
+  adminer:
+    image: dockette/adminer:full-php5
+    restart: always
+    ports:
+      -"8081":"8080"
+volumes:
+  db_date: {}

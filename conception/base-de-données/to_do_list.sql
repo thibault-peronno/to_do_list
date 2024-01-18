@@ -9,7 +9,7 @@ USE to_do_list;
 DROP USER IF EXISTS 'Thibault_to_do_list'@'localhost';
 
 -- I create an user with grant privileges to manage the database. The password need to be stronger in prod
-CREATE USER 'Thibault_to_do_list'@'localhost' IDENTIFIED BY 'password';
+CREATE USER 'Thibault_to_do_list'@'localhost' IDENTIFIED BY 'Tberp876$39nGdeLp';
 GRANT ALL ON to_do_list.* TO 'Thibault_to_do_list'@'localhost';
 
 -- I drop my tables if exists
