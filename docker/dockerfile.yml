@@ -20,7 +20,8 @@ COPY ../conception/base-de-données ./scripts
 
 # Copy entrypoint.sh to the Docker image
 COPY entrypoint.sh /entrypoint.sh
-
+# to make the file exec
+RUN chmod +x /entrypoint.sh
 # Set the entrypoint for the Docker image
 ENTRYPOINT ["/entrypoint.sh"]
 

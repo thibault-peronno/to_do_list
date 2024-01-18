@@ -6,11 +6,11 @@ CREATE DATABASE IF NOT EXISTS to_do_list;
 USE to_do_list;
 
 -- I drop the user admin if exist
-DROP USER IF EXISTS 'Thibault_to_do_list'@'localhost';
+DROP USER IF EXISTS ${USER};
 
 -- I create an user with grant privileges to manage the database. The password need to be stronger in prod
-CREATE USER 'Thibault_to_do_list'@'localhost' IDENTIFIED BY 'Tberp876$39nGdeLp';
-GRANT ALL ON to_do_list.* TO 'Thibault_to_do_list'@'localhost';
+CREATE USER ${USER} IDENTIFIED BY ${PASSWORD};
+GRANT ALL ON to_do_list.* TO ${USER};
 
 -- I drop my tables if exists
 DROP TABLE IF EXISTS users;
