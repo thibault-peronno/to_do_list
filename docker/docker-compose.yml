@@ -10,15 +10,38 @@ services:
       - adminer
     env_file:
       - .env
-  # Service MySql
+  # Service Nginx, to http. + file nginx.config in backend/config
+  nginx:
+    image: nginx:alpine:3.17
+    restart : always
+    environment:
+      - NGINX_HOST=${NGINX_HOST}
+      - NGINX_PORT=${NGINX_PORT}
+    ports:
+    # <host port> : <container port>
+      -"80:80"
+      -"443:443"
+    volumes:
+      - .backend/config/nginx:/etc/nginx/conf.d
+  # image for https
+  certbot:
+    image: certbot/certbot
+    volumes:
+      ./backend/config/conf:/etc/letsencrypt
+      ./backend/config/www:/var/www/certbot
+  # image MySql doc :https://hub.docker.com/_/mysql
   mysqldb:
-    image: mysql:8.0.3
+    image: mysql:8.0.35
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=${}
-      - MYSQL_DATABASE=${}
+      - MYSQL_ROOT_PASSWORD=${DBROOT}
+      - MYSQL_DATABASE=${DATABASE}
+      - MYSQL_USER = ${USER}
+      - MYSQL_PASSWORD= ${PASSWORD}
     ports:
       -"3306":"3306"
+    depends_on:
+      - nginx
     volumes:
       -db_data:/var/lib/mysql
   # service Adminer
@@ -27,5 +50,7 @@ services:
     restart: always
     ports:
       -"8081":"8080"
+    depends_on:
+      - mysqldb
 volumes:
   db_date: {}

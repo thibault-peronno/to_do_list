@@ -18,5 +18,11 @@ RUN npm install
 COPY src ./src
 COPY ../conception/base-de-données ./scripts
 
+# Copy entrypoint.sh to the Docker image
+COPY entrypoint.sh /entrypoint.sh
+
+# Set the entrypoint for the Docker image
+ENTRYPOINT ["/entrypoint.sh"]
+
 # eec scripts to create database
-CMD [ "sh", "-c", "./scripts/create-db.sh && npm start" ]
+CMD [ "sh", "-c", "source ../.env && ./scripts/to_do_list.sql && npm start" ]
