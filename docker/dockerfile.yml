@@ -1,9 +1,5 @@
 # In this docker fil, we need to create an environment to use the API on different support. 
 
-# What do we need in the environment ?
-# - node js version 20.9.0, mysql version 8.3.30
-# Do I need a linux ?
-
 # Docker image of Node Js
 FROM node:20.9.0
 
