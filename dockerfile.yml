@@ -4,20 +4,25 @@
 FROM node:20.9.0
 
 # to define the repository to work
+# WORKDIR /backend
 WORKDIR /TO_DO_LIST
 
+RUN ls -lh /*
+
 # copy of the package.json file and instal dependancies (source - dest)
+# COPY package.json ./package.json
 COPY ./backend/package.json ./package.json
-RUN npm install
+# RUN npm install
 
 # copy of others files from project
+# COPY src ./src
 COPY ./backend ./src
 COPY ./to_do_list.sql ./scripts
 
 # Copy entrypoint.sh to the Docker image
-COPY entrypoint.sh /entrypoint.sh
+COPY ./entrypoint.sh entrypoint.sh
 # to make the file exec
-RUN chmod +x /entrypoint.sh
+RUN chmod +x entrypoint.sh
 # Set the entrypoint for the Docker image
 ENTRYPOINT ["/entrypoint.sh"]
 
