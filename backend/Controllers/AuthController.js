@@ -53,7 +53,7 @@ class AuthController {
         return res.status(401).json({ error: "Authentification échouée" });
       }
       const isUser = await this.authModel.loginUser(identifiant);
-      // console.log('isUser', isUser);
+      console.log('isUser', isUser);
       if (!isUser) {
         return res.status(401).json({ error: "Authentification échouée" });
       }
@@ -75,6 +75,7 @@ class AuthController {
           email: isUser.identifiant,
         });
     } catch (error) {
+      console.log('message d erreur', error.message);
       res
         .status(500)
         .json({ error: "La connection a échouée", message: error });
