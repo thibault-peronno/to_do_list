@@ -1,4 +1,4 @@
-import TaskModel from "../models/task.js";
+import TaskModel from "../Models/task.js";
 import TaskService from "../Services/taskService.js";
 
 class TaskController {

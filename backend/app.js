@@ -20,5 +20,5 @@ app.use(cors({ origin: ["http://localhost:3000", "http://localhost:5173"], crede
 app.use(router);
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Server listening on port ${port}`)
 })
