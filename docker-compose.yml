@@ -16,12 +16,12 @@ services:
   nginx:
     container_name: nginx
     image: nginx:alpine
-    restart : always
+    restart: always
     env_file: 
-      - ./backend/.env
+      - .env
     environment:
-      - NGINX_HOST
-      - NGINX_PORT
+      - NGINX_HOST=${NGINX_HOST}
+      - NGINX_PORT=${NGINX_PORT}
     ports:
     # <host port> : <container port>
       - "8080:80"
@@ -48,34 +48,35 @@ services:
   #     - ./backend/config/letsencrypt:/backend/config/letsencrypt
   #     - ./certbot/data:/var/www/
   # image MySql doc :https://hub.docker.com/_/mysql
-  # mysqldb:
-  #   container_name: mysql
-  #   image: mysql:8.0.35
-  #   restart: always
-  #   env_file:
-  #     - ./backend/.env
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD=${DBROOT}
-  #     MYSQL_DATABASE=${DATABASE}
-  #     MYSQL_USER=${USER}
-  #     MYSQL_PASSWORD=${PASSWORD}
-  #   ports:
-  #     - "3306:3306"
-  #   depends_on:
-  #     nginx
-  #   volumes:
-  #     ./to_do_list.sql:/docker-entrypoint-initdb.d/1.sql
-  #     db_data:/var/lib/mysql
+  mysqldb:
+    container_name: mysql
+    env_file:
+      - path: .env
+        required: true # default
+    image: mysql:8.0.35
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DBROOT}
+      - MYSQL_DATABASE=${DATABASE}
+      - MYSQL_USER=${USER}
+      - MYSQL_PASSWORD=${PASSWORD}
+    ports:
+      - "3306:3306"
+    depends_on:
+      - nginx
+    volumes:
+      - ./to_do_list.sql:/docker-entrypoint-initdb.d/1.sql
+      - db_data:/var/lib/mysql
   # service Adminer
-#   adminer:
-#     container_name: adminer
-#     image: dockette/adminer:full-php5
-#     restart: always
-#     ports:
-#       - "8081:8081"
-#     depends_on:
-#       - mysqldb
-#     env_file:
-#       - ./backend/.env
-# volumes:
-#   db_data: {}
+  adminer:
+    container_name: adminer
+    image: adminer
+    restart: always
+    ports:
+      - "8081:8080"
+    depends_on:
+      - mysqldb
+    env_file:
+      - .env
+volumes:
+  db_data: {}
