@@ -14,7 +14,7 @@ services:
   #     - adminer
   # Service Nginx, to http. + file nginx.config in backend/config
   nginx:
-    container_name: nginx
+    container_name: nginx_api_to_to_list
     image: nginx:alpine
     restart: always
     env_file: 
