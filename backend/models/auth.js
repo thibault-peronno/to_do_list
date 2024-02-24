@@ -37,7 +37,7 @@ class AuthModel {
       .promise()
       .query('SELECT `identifiant` FROM `users` WHERE identifiant=?', [email]);
       console.log(result);
-      if(result[0].length == []){
+      if(result[0].length == 0){
         console.log(result[0]);
         return false
       }

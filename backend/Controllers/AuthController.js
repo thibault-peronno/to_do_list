@@ -40,7 +40,7 @@ class AuthController {
         });
       }
     } catch (error) {
-      // console.log('ligne 43', error);
+      console.log('ligne 43', error);
       return res.status(400).json(error);
     }
   };
