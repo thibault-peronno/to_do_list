@@ -7,7 +7,7 @@ import authMiddleware from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
-router.get('/', (req, res) => {res.json({message:'callback'})});
+router.get('/', (req, res) => {res.json({message:'Je suis bien un retour du routing'})});
 
 router.use('/api/auth', authRouter);
 router.use('/api/user', authMiddleware.checkToken, userRouter);

@@ -4,7 +4,7 @@ import dotenv from "dotenv/config";
 let connectDB;
 
 setTimeout(()=> {
-
+console.log('host', process.env.HOST);
   connectDB = mysql.createConnection({
     host: process.env.HOST,
     port: process.env.PORT,
