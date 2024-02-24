@@ -1,17 +1,18 @@
 version: '3.8'
 services:
   # service Node JS
-  # app:
-  #   build:
-  #     context: ./
-  #     dockerfile: ./dockerfile.yml
-  #   env_file:
-  #     - ./backend/.env
-  #   ports:
-  #     - "3000:3000"
-  #   depends_on:
-  #     - mysqldb
-  #     - adminer
+  app:
+    container_name: api_to_to_list
+    build:
+      context: ./
+      dockerfile: ./dockerfile.yml
+    env_file:
+      - ./backend/.env
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysqldb
+      - adminer
   # Service Nginx, to http. + file nginx.config in backend/config
   nginx:
     container_name: nginx_api_to_to_list

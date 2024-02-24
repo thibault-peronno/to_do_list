@@ -26,5 +26,7 @@ COPY ./backend ./
 # # Set the entrypoint for the Docker image
 # ENTRYPOINT ["./TO_DO_LIST/entrypoint.sh"]
 
+# EXPOSE 3000
+
 # eec scripts to create database
 CMD [ "sh", "-c", " rm -rf node_modules && npm prune && npm install && npm run server" ]

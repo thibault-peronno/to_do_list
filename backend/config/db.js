@@ -24,31 +24,15 @@ setTimeout(()=> {
   //   database: 'to_do_list_test',
   // });
   
-  // 'connectDB : ' + connectDB.connect(function(err) {
-  //   if (err) {
-  //     console.error('Error connecting to database:', err);
-  //     return;
-  //   }
+  connectDB.connect(function(err) {
+    if (err) {
+      console.error('Error connecting to database:', err);
+      return;
+    }
    
-  //   console.log('Connected to database');
-  //  });
+    console.log('Connected to database');
+   });
   
-   connectDB.connect((err) => {
-    if(err) {
-       console.error('Error connecting to database: ', err);
-       setTimeout(() => {
-         connectDB.connect();
-       }, 2000);
-    }
-   });
-   
-   connectDB.on('error', (err) => {
-    if(err.code === 'PROTOCOL_CONNECTION_LOST') {
-       connectDB.connect();
-    } else {
-       throw err;
-    }
-   });
 }, 5000)
 
 
