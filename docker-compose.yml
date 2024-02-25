@@ -55,6 +55,11 @@ services:
       - path: .env
         required: true # default
     image: mysql:8.0.35
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval:  10s
+      timeout:  5s
+      retries:  5
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=${DBROOT}

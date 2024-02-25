@@ -1,32 +1,14 @@
 # In this docker fil, we need to create an environment to use the API on different support. 
 
-# Docker image of Node Js
+# Docker pull the image of Node Js on dockerhub
 FROM node:latest
 
-# to define the repository to work
+# to define the repository where to work
 # WORKDIR /backend
 WORKDIR /TO_DO_LIST
 
-# copy of the package.json file and instal dependancies (source - dest)
-# COPY package.json ./package.json
-# COPY ./backend/package.json ./package.json
-# RUN npm install
-
 # copy of others files from project
-# COPY src ./src
 COPY ./backend ./
-# COPY ./to_do_list.sql ./scripts
 
-# # Copy entrypoint.sh to the Docker image
-# COPY ./entrypoint.sh ./entrypoint.sh
-# # to make the file exec
-# # RUN chmod +x ./entrypoint.sh
-# RUN chmod +x ./TO_DO_LIST/entrypoint.sh
-
-# # Set the entrypoint for the Docker image
-# ENTRYPOINT ["./TO_DO_LIST/entrypoint.sh"]
-
-# EXPOSE 3000
-
-# eec scripts to create database
+# this line is a command line to exect scripts to create database
 CMD [ "sh", "-c", " rm -rf node_modules && npm prune && npm install && npm run server" ]
