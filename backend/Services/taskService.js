@@ -25,16 +25,13 @@ class TaskServise {
     const { error } = await taskSchema.validate(taskValue, {
       abortEarly: false,
     });
-    console.log("error task service", error);
     if (error) {
       throw error;
     }
-    // console.log('task value', taskValue);
     return taskValue;
   };
 
   validateUpdateTask = async (taskValue, createMod) => {
-    // console.log('validation', taskValue);
     const taskSchema = Joi.object({
       id: Joi.number().required().messages({
         "any.required": "L'id est obligatoire pour modifier la bonne tâche",
@@ -50,9 +47,7 @@ class TaskServise {
     });
 
     const { error } = await taskSchema.validate(taskValue);
-    // console.log('task validation', taskValue);
     if (error) {
-      console.log(error);
       return error.message;
     }
     return taskValue;

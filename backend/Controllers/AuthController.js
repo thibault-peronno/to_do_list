@@ -25,13 +25,10 @@ class AuthController {
    * "identifiant"} res
    */
   registerUser = async (req, res) => {
-    // console.log('registerUser', req.body);
     const { body } = req;
     try {
       const errorValidation = await this.authService.validationRegister(body);
       const registeredUser = await this.authModel.registerNewUser(body);
-      // console.log('ligne 33 auth controller', registeredUser);
-      // console.log('ligne 34 auth controller', errorValidation);
       if (registeredUser.emailExist) {
         return res.status(409).json({ message: registeredUser.message });
       } else if (registeredUser[0].affectedRows == 1) {
@@ -40,7 +37,6 @@ class AuthController {
         });
       }
     } catch (error) {
-      console.log('ligne 43', error);
       return res.status(400).json(error);
     }
   };
@@ -53,7 +49,6 @@ class AuthController {
         return res.status(401).json({ error: "Authentification échouée" });
       }
       const isUser = await this.authModel.loginUser(identifiant);
-      console.log('isUser', isUser);
       if (!isUser) {
         return res.status(401).json({ error: "Authentification échouée" });
       }
@@ -90,7 +85,6 @@ class AuthController {
         return res.status(401).json({ error: "Authentification échouée" });
       }
       const isUser = await this.authModel.loginUser(identifiant);
-      // console.log('isUser', isUser);
       if (!isUser) {
         return res.status(401).json({ error: "Authentification échouée" });
       }

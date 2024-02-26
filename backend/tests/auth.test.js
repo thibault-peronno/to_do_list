@@ -4,12 +4,8 @@ import AuthModel from "../Models/auth";
 const authModel = new AuthModel();
 const authController = new AuthController();
 
-// const authController = require("../Controllers/AuthController");
-// const authModel = require("../Models/auth");
-
 describe('Model Test', function() {
     test('loginUser returns user', async () => {
-        console.log(authModel);
         const user = await authModel.loginUser('thib@gmail.com');
         expect(user).toBeDefined();
         expect(user.identifiant).toBe('thib@gmail.com');

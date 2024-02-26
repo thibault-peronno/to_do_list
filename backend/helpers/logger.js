@@ -6,12 +6,10 @@ const logger = {
 
     info: (message) => {
         const log = `[${dayjs().format('YYYY-MM-DD HH:mm:ss')}] [INFO] ${message}`
-        console.log(log);
         logger.writeLogFile(log);
     },
     error: (message) => {
         const log = `[${dayjs().format('YYYY-MM-DD HH:mm:ss')}] [ERROR] ${message}`
-        console.log(log);
         logger.writeLogFile(log);
     },
 

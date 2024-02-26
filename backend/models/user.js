@@ -1,9 +1,6 @@
 import connectDB from "../config/db.js";
 import UserService from "../Services/userService.js";
 
-// connectDB();
-console.log("connectDB model : " + connectDB);
-
 class UserModel {
   constructor() {
     this.userService = new UserService();
@@ -24,7 +21,6 @@ class UserModel {
   };
 
   updateUser = async (updateUserValue) => {
-    // console.log('model user', updateUserValue);
     try {
       const { firstname, lastname, identifiant, id } = updateUserValue;
       const result = await connectDB
@@ -34,7 +30,6 @@ class UserModel {
           [firstname, lastname, identifiant, id]
         );
       const updateValue = await this.findCurrentUser(id);
-      console.log(updateValue);
       return updateValue;
     } catch (error) {
       return error;

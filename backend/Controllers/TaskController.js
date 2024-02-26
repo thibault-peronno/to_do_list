@@ -19,14 +19,11 @@ class TaskController {
    */
   createTask = async (req, res) => {
     try {
-      console.log('create body', req.body);
       const { body } = req;
       const validation = await this.taskService.validateNewTask(body);
-      console.log('validation task', validation);
       const newTask = await this.taskModel.createTask(body);
       return res.status(201).send(newTask);
     } catch (error) {
-      console.log('error create task', error);
       return res.status(400).json(error);
     }
   };
@@ -44,10 +41,8 @@ class TaskController {
       const userId = parseInt(req.params.id);
       if (isNaN(userId)) throw new Error();
       const tasks = await this.taskModel.findTasksOfCurrentUser(userId);
-      console.log('tasks get', tasks);
       res.send(tasks);
     } catch (error) {
-      console.log('ligne 50 task controlle' , error);
       res.json(error);
     }
   };
@@ -83,13 +78,10 @@ class TaskController {
    * "isDone"} res 
    */
   updateTask = async (req, res) => {
-    console.log('update controller', req.body);
     try {
-      // console.log(body);
       const { body } = req;
       await this.taskService.validateUpdateTask(body);
       const result = await this.taskModel.updateTask(body);
-      // console.log('result controller', result);
       if (result.affectedRows === 0) {
         return res.sendStatus(404);
       } else {
@@ -97,7 +89,6 @@ class TaskController {
       }
       
     } catch (error) {
-      // console.log(error);
       return res
         .status(500)
         .json({ error: "La mise à jour a échouée", message: error });
