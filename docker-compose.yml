@@ -30,8 +30,8 @@ services:
     volumes:
       - ./backend/config/nginx:/etc/nginx/conf.d
       - ./index.html:/var/www/html/index.html
-      # ./backend/config/letsencrypt:/backend/config/letsencrypt:ro
-      # ./certbot/data:/var/www/certbot
+      - /etc/letsencrypt/live/thibault-peronno.fr/fullchain.pem:/etc/nginx/ssl/fullchain.pem
+      - /etc/letsencrypt/live/thibault-peronno.fr/privkey.pem:/etc/nginx/ssl/privkey.pem
     command: [nginx-debug, '-g', 'daemon off;']
   # image for https
   # certbot:
