@@ -9,7 +9,7 @@ services:
     env_file:
       - ./backend/.env
     ports:
-      - "3000:3000"
+      - "3000"
     depends_on:
       - mysqldb
       - adminer
@@ -67,7 +67,7 @@ services:
       - MYSQL_USER=${USER}
       - MYSQL_PASSWORD=${PASSWORD}
     ports:
-      - "3306:3306"
+      - "3306"
     depends_on:
       - nginx
     volumes:
@@ -81,7 +81,7 @@ services:
     environment:  
       ADMINER_DEFAULT_SERVER: mysqldb
     ports:
-      - "8081:8080"
+      - "8080"
     depends_on:
       - mysqldb
     env_file:
