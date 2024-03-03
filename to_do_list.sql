@@ -8,9 +8,12 @@ USE to_do_list;
 -- I drop the user admin if exist
 DROP USER IF EXISTS 'Thibault_to_do_list'@'localhost';
 
--- I create an user with grant privileges to manage the database. The password need to be stronger in prod
-CREATE USER 'Thibault_to_do_list'@'localhost' IDENTIFIED BY 'password';
-GRANT ALL ON to_do_list.* TO 'Thibault_to_do_list'@'localhost';
+-- -- I create an user with grant privileges to manage the database. The password need to be stronger in prod
+-- CREATE USER 'Thibault_to_do_list'@'localhost' IDENTIFIED BY 'password';
+-- GRANT ALL ON to_do_list.* TO 'Thibault_to_do_list'@'localhost';
+
+CREATE USER 'Thibault_to_do_list'@'mysqldb' IDENTIFIED BY 'password';
+GRANT ALL ON to_do_list.* TO 'Thibault_to_do_list'@'mysqldb';
 
 -- I drop my tables if exists
 DROP TABLE IF EXISTS users;

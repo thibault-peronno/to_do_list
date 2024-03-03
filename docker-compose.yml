@@ -7,7 +7,7 @@ services:
       context: ./
       dockerfile: ./dockerfile.yml
     env_file:
-      - ./backend/.env
+      - .env
     ports:
       - "3000"
     depends_on:
@@ -27,8 +27,10 @@ services:
     # <host port> : <container port>
       - "8080:80"
       - "443:443"
+    depends_on:
+      - app
     volumes:
-      - ./backend/config/nginx:/etc/nginx/conf.d
+      - ./backend/config/nginx:/etc/nginx/conf.d/
       - ./index.html:/var/www/html/index.html
       - /etc/letsencrypt/live/thibault-peronno.fr/fullchain.pem:/etc/nginx/ssl/fullchain.pem
       - /etc/letsencrypt/live/thibault-peronno.fr/privkey.pem:/etc/nginx/ssl/privkey.pem
@@ -47,14 +49,13 @@ services:
       retries:  5
     restart: always
     environment:
+      - MYSQL_ROOT_USER={USER_ROOT}
       - MYSQL_ROOT_PASSWORD=${DBROOT}
-      - MYSQL_DATABASE=${DATABASE}
-      - MYSQL_USER=${USER}
-      - MYSQL_PASSWORD=${PASSWORD}
+      - MYSQL_DATABASE=${DATABASE_MYSQL}
+      - MYSQL_USER=${USER_MYSQL}
+      - MYSQL_PASSWORD=${PASSWORD_MYSQL}
     ports:
       - "3306"
-    depends_on:
-      - nginx
     volumes:
       - ./to_do_list.sql:/docker-entrypoint-initdb.d/1.sql
       - db_data:/var/lib/mysql
