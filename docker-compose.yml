@@ -9,32 +9,29 @@ services:
     env_file:
       - .env
     ports:
-      - "3000"
+      - "8081:3000"
     depends_on:
       - mysqldb
       - adminer
   # Service Nginx, to http. + file nginx.config in backend/config
-  nginx:
-    container_name: nginx_api_to_to_list
-    image: nginx:alpine
-    restart: always
-    env_file: 
-      - .env
-    environment:
-      - NGINX_HOST=${NGINX_HOST}
-      - NGINX_PORT=${NGINX_PORT}
-    ports:
-    # <host port> : <container port>
-      - "8080:80"
-      - "443:443"
-    depends_on:
-      - app
-    volumes:
-      - ./backend/config/nginx:/etc/nginx/conf.d/
-      - ./index.html:/var/www/html/index.html
-      - /etc/letsencrypt/live/thibault-peronno.fr/fullchain.pem:/etc/nginx/ssl/fullchain.pem
-      - /etc/letsencrypt/live/thibault-peronno.fr/privkey.pem:/etc/nginx/ssl/privkey.pem
-    command: [nginx-debug, '-g', 'daemon off;']
+  # nginx:
+  #   container_name: nginx_api_to_to_list
+  #   image: nginx:alpine
+  #   restart: always
+  #   env_file: 
+  #     - .env
+  #   ports:
+  #   # <host port> : <container port>
+  #     - "8081:80"
+  #     - "444:443"
+  #   depends_on:
+  #     - app
+  #   volumes:
+  #     - ./backend/config/nginx:/etc/nginx/conf.d/
+  #     - ./index.html:/var/www/html/index.html
+  #     - /etc/letsencrypt/live/thibault-peronno.fr/fullchain.pem:/etc/nginx/ssl/fullchain.pem
+  #     - /etc/letsencrypt/live/thibault-peronno.fr/privkey.pem:/etc/nginx/ssl/privkey.pem
+  #   command: [nginx-debug, '-g', 'daemon off;']
   # image MySql doc :https://hub.docker.com/_/mysql
   mysqldb:
     container_name: mysql
@@ -67,7 +64,7 @@ services:
     environment:  
       ADMINER_DEFAULT_SERVER: mysqldb
     ports:
-      - "8080"
+      - "8082:8080"
     depends_on:
       - mysqldb
     env_file:
