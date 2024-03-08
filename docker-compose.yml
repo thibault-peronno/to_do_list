@@ -13,26 +13,6 @@ services:
     depends_on:
       - mysqldb
       - adminer
-  # Service Nginx, to http. + file nginx.config in backend/config
-  # nginx:
-  #   container_name: nginx_api_to_to_list
-  #   image: nginx:alpine
-  #   restart: always
-  #   env_file: 
-  #     - .env
-  #   ports:
-  #   # <host port> : <container port>
-  #     - "8081:80"
-  #     - "444:443"
-  #   depends_on:
-  #     - app
-  #   volumes:
-  #     - ./backend/config/nginx:/etc/nginx/conf.d/
-  #     - ./index.html:/var/www/html/index.html
-  #     - /etc/letsencrypt/live/thibault-peronno.fr/fullchain.pem:/etc/nginx/ssl/fullchain.pem
-  #     - /etc/letsencrypt/live/thibault-peronno.fr/privkey.pem:/etc/nginx/ssl/privkey.pem
-  #   command: [nginx-debug, '-g', 'daemon off;']
-  # image MySql doc :https://hub.docker.com/_/mysql
   mysqldb:
     container_name: mysql
     env_file:
