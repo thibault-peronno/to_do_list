@@ -8,7 +8,6 @@ class AuthService {
   }
 
   validationRegister = async (registerValue, createMod) => {
-    console.log('register', registerValue);
     const registerSchema = Joi.object({
       firstname: Joi.string().required().messages({
         "any.required": "Votre prénom est obligatoire",
@@ -40,9 +39,7 @@ class AuthService {
     const {error} = await registerSchema.validate
 (registerValue, { abortEarly: false });
     if (error) {
-      console.log('auth service erreur', error);
       throw error;
-      console.log(('register error', error));
       return error;
     }
     return registerValue;
@@ -73,9 +70,7 @@ class AuthService {
 
   hashPassword = async (passwordValue) => {
     try {
-      console.log('hash password', passwordValue);
       const hashedPassword = await bcrypt.hash(passwordValue, 10);
-      console.log(hashedPassword);
       return hashedPassword;
       
     } catch (error) {

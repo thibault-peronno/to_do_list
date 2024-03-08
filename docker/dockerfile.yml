@@ -1,0 +1,25 @@
+# In this docker fil, we need to create an environment to use the API on different support. 
+
+# Docker image of Node Js
+FROM node:20.9.0
+
+# to define the repository to work
+WORKDIR /TO_DO_LIST
+
+# copy of the package.json file and instal dependancies (source - dest)
+COPY ./backend/package.json ./package.json
+RUN npm install
+
+# copy of others files from project
+COPY ./backend ./src
+COPY ./to_do_list.sql ./scripts
+
+# Copy entrypoint.sh to the Docker image
+COPY entrypoint.sh /entrypoint.sh
+# to make the file exec
+RUN chmod +x /entrypoint.sh
+# Set the entrypoint for the Docker image
+ENTRYPOINT ["/entrypoint.sh"]
+
+# eec scripts to create database
+CMD [ "sh", "-c", "source ../.env && ./scripts/to_do_list.sql && npm start" ]

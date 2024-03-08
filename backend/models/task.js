@@ -23,7 +23,6 @@ class TaskModel {
   };
 
   findTasksOfCurrentUser = async (userId) => {
-    console.log('find tasks', userId);
     try {
       const [tasks] = await connectDB
         .promise()
@@ -52,9 +51,7 @@ class TaskModel {
   };
 
   updateTask = async (taskValue) => {
-    console.log('model update', taskValue);
     try {
-      // console.log('try');
       const { description, isDone, id } = taskValue;
       const result = await connectDB
         .promise()
@@ -65,7 +62,6 @@ class TaskModel {
         ]);
       return result;
     } catch (error) {
-      // console.log('catch');
       return error;
     }
   };

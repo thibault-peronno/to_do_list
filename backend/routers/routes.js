@@ -7,7 +7,7 @@ import authMiddleware from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
-router.get('/', (req, res) => {res.json({message:'callback'})});
+router.get('/', (req, res) => {res.json({message:"Tu es sur l'api https://to-do-list-thibault-peronno.fr. Tu peux aller sur ce lien pour tester l'interface"})});
 
 router.use('/api/auth', authRouter);
 router.use('/api/user', authMiddleware.checkToken, userRouter);

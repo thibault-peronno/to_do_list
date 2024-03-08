@@ -17,14 +17,12 @@ class UserController {
    * "identifiant"} res
    */
   getUser = async (req, res) => {
-    console.log("function usercontroller");
     try {
       const userId = parseInt(req.params.id);
       if (isNaN(userId)) throw new Error();
       const user = await this.userModel.findCurrentUser(userId);
       res.send(user);
     } catch (error) {
-      console.log("eeror " + error);
       res.json({ message: `message d'erreur : ${error}, ${error.statut}` });
     }
   };
@@ -45,27 +43,21 @@ class UserController {
   updateUser = async (req, res) => {
     const { body } = req;
     try {
-      console.log('updateuser', body);
       await this.userService.validateUpdateUser(body);
-      console.log('après validation');
       const updateUser = await this.userModel.updateUser(body);
-      console.log(updateUser);
       if (updateUser.length < 0) {
-        console.log('404');
         return res.status(404).json({
           status: 'error',
           message: "L'utilisateur n' pas pu être mis à jour",
           data: body
         });
       } else if(updateUser.length > 0) {
-        console.log('200');
         return res.status(200).json({
           status :'ok',
           message : "Mise à jour de l'utilisateur",
           data:updateUser
       });
       }else{
-        console.log('500');
         return res.status(500).json({
           status :'error',
           message : "Erreur serveur",
@@ -73,7 +65,6 @@ class UserController {
       });
     }
     } catch (error) {
-      console.log('422', error);
       return res.status(400).json(error);
     }
   };
