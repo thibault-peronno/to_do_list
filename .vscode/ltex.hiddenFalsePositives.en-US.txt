@@ -1,0 +1,1 @@
+{"rule":"DT_PRP","sentence":"^\\Qpage as a I need to for\\E$"}

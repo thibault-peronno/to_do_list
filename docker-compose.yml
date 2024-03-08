@@ -1,0 +1,53 @@
+version: '3.8'
+services:
+  # service Node JS
+  app:
+    container_name: api_to_to_list
+    build:
+      context: ./
+      dockerfile: ./dockerfile.yml
+    env_file:
+      - .env
+    ports:
+      - "8081:3000"
+    depends_on:
+      - mysqldb
+      - adminer
+  mysqldb:
+    container_name: mysql
+    env_file:
+      - path: .env
+        required: true # default
+    image: mysql:8.0.35
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval:  10s
+      timeout:  5s
+      retries:  5
+    restart: always
+    environment:
+      - MYSQL_ROOT_USER={USER_ROOT}
+      - MYSQL_ROOT_PASSWORD=${DBROOT}
+      - MYSQL_DATABASE=${DATABASE_MYSQL}
+      - MYSQL_USER=${USER_MYSQL}
+      - MYSQL_PASSWORD=${PASSWORD_MYSQL}
+    ports:
+      - "3306"
+    volumes:
+      - ./to_do_list.sql:/docker-entrypoint-initdb.d/1.sql
+      - db_data:/var/lib/mysql
+  # service Adminer
+  adminer:
+    container_name: adminer
+    image: adminer
+    restart: always
+    environment:  
+      ADMINER_DEFAULT_SERVER: mysqldb
+    ports:
+      - "8082:8080"
+    depends_on:
+      - mysqldb
+    env_file:
+      - .env
+volumes:
+  db_data: {}

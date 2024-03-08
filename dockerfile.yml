@@ -1,0 +1,14 @@
+# In this docker fil, we need to create an environment to use the API on different support. 
+
+# Docker pull the image of Node Js on dockerhub
+FROM node:latest
+
+# to define the repository where to work
+# WORKDIR /backend
+WORKDIR /TO_DO_LIST
+
+# copy of others files from project
+COPY ./backend ./
+
+# this line is a command line to exect scripts to create database
+CMD [ "sh", "-c", " rm -rf node_modules && npm prune && npm install && npm run server" ]
