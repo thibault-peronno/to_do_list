@@ -9,7 +9,6 @@ let connectDB;
     user: process.env.USER_MYSQL ,
     password: process.env.PASSWORD_MYSQL ,
     database: process.env.DATABASE_MYSQL ,
-    reconnect: true,
   });
 
   connectDB.connect(function(err) {
