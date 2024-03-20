@@ -52,7 +52,10 @@ class AuthController {
       if (!isUser) {
         return res.status(401).json({ error: "Authentification échouée" });
       }
-      const passwordMatch = await bcrypt.compare(password, isUser.password);
+      const passwordMatch = await this.authService.comparePassword(
+        password,
+        isUser.password
+      );
       if (!passwordMatch) {
         return res.status(401).json({ error: "Authentification échouée" });
       }
@@ -61,16 +64,14 @@ class AuthController {
       });
       //in production mode, change secure by true and add domain option.
       res.cookie("auth_cookies", token, { httpOnly: true, secure: false });
-      res
-        .status(200)
-        .json({
-          id: isUser.id,
-          firstname: isUser.firstname,
-          lastname: isUser.lastname,
-          email: isUser.identifiant,
-        });
+      res.status(200).json({
+        id: isUser.id,
+        firstname: isUser.firstname,
+        lastname: isUser.lastname,
+        email: isUser.identifiant,
+      });
     } catch (error) {
-      console.log('message d erreur', error.message);
+      console.log("message d erreur", error.message);
       res
         .status(500)
         .json({ error: "La connection a échouée", message: error });
@@ -88,22 +89,23 @@ class AuthController {
       if (!isUser) {
         return res.status(401).json({ error: "Authentification échouée" });
       }
-      const passwordMatch = await bcrypt.compare(password, isUser.password);
+      const passwordMatch = await this.authService.comparePassword(
+        password,
+        isUser.password
+      );
       if (!passwordMatch) {
         return res.status(401).json({ error: "Authentification échouée" });
       }
       const token = jwt.sign({ userID: isUser.id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_SECRET_EXPIRE,
       });
-      res
-        .status(200)
-        .json({
-          id: isUser.id,
-          firstname: isUser.firstname,
-          lastname: isUser.lastname,
-          email: isUser.identifiant,
-          token : token
-        });
+      res.status(200).json({
+        id: isUser.id,
+        firstname: isUser.firstname,
+        lastname: isUser.lastname,
+        email: isUser.identifiant,
+        token: token,
+      });
     } catch (error) {
       res
         .status(500)
