@@ -56,8 +56,11 @@ class AuthController {
         password,
         isUser.password
       );
-      if (!passwordMatch) {
-        return res.status(401).json({ error: "Authentification échouée" });
+      console.log(passwordMatch)
+      if (passwordMatch.error) {
+        return res.status(500).json({ error: passwordMatch.error, message: passwordMatch.error });
+      }else if(!passwordMatch){
+        return res.status(401).json({ error: "La connexion a échoué"});
       }
       const token = jwt.sign({ userID: isUser.id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_SECRET_EXPIRE,
@@ -93,8 +96,10 @@ class AuthController {
         password,
         isUser.password
       );
-      if (!passwordMatch) {
-        return res.status(401).json({ error: "Authentification échouée" });
+      if (passwordMatch.error) {
+        return res.status(500).json({ error: passwordMatch.error, message: passwordMatch.error });
+      }else if(!passwordMatch){
+        return res.status(401).json({ error: "La connexion a échoué"});
       }
       const token = jwt.sign({ userID: isUser.id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_SECRET_EXPIRE,

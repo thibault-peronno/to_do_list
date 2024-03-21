@@ -84,9 +84,7 @@ class AuthService {
       console.log(password, userPassword);
       return passwordMatch
     } catch (error) {
-      res
-      .status(500)
-      .json({ error: "Erreur lors de la comparaison des mots de passe :", message: error });
+      return { error: "Erreur lors de la comparaison des mots de passe :", message: error };
     }
   }
 }
