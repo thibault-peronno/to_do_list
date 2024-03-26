@@ -56,7 +56,6 @@ class AuthController {
         password,
         isUser.password
       );
-      console.log(passwordMatch)
       if (passwordMatch.error) {
         return res.status(500).json({ error: passwordMatch.error, message: passwordMatch.error });
       }else if(!passwordMatch){
@@ -66,7 +65,7 @@ class AuthController {
         expiresIn: process.env.JWT_SECRET_EXPIRE,
       });
       //in production mode, change secure by true and add domain option.
-      res.cookie("auth_cookies", token, { httpOnly: true, secure: false });
+      res.cookie("auth_cookies", token, { httpOnly: true, secure: true });
       res.status(200).json({
         id: isUser.id,
         firstname: isUser.firstname,
