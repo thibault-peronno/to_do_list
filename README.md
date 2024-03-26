@@ -1,5 +1,5 @@
 # TO DO LIST
-Fot r my exeman as "Concepteur et développeur d'applications", I created an web site about to do list.
+For my exeman as "Concepteur et développeur d'applications", I created an web site about to do list.
 
 This actual project is about the API. I develop this API with Node.Js et Express.JS without ORM.
 
