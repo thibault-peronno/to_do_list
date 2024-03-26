@@ -3,7 +3,7 @@ import dotenv from "dotenv/config";
 
 let connectDB;
 
-  connectDB = mysql.createConnection({
+  connectDB = mysql.createPool({
     host: process.env.HOST ,
     port: process.env.PORT ,
     user: process.env.USER_MYSQL ,
@@ -11,7 +11,7 @@ let connectDB;
     database: process.env.DATABASE_MYSQL ,
   });
 
-  connectDB.connect(function(err) {
+  connectDB.on('error', (err) => {
     if (err) {
       console.error('Error connecting to database:', err);
       return;
