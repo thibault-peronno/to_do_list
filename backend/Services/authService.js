@@ -81,7 +81,7 @@ class AuthService {
   comparePassword = async (password, userPassword) => {
     try {
       const passwordMatch = await bcrypt.compare(password, userPassword);
-      console.log(password, userPassword);
+      // console.log(password, userPassword);
       return passwordMatch
     } catch (error) {
       return { error: "Erreur lors de la comparaison des mots de passe :", message: error };

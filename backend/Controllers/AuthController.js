@@ -73,7 +73,7 @@ class AuthController {
         email: isUser.identifiant,
       });
     } catch (error) {
-      console.log("message d erreur", error.message);
+      // console.log("message d erreur", error.message);
       res
         .status(500)
         .json({ error: "La connection a échouée", message: error });
